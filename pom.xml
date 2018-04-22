@@ -7,6 +7,7 @@
     <groupId>com.owmax</groupId>
     <artifactId>owmax</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
     <!--<packaging>war</packaging>-->
 
@@ -85,16 +86,6 @@
             <version>4.0.1.Final</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.aliyun</groupId>
-            <artifactId>aliyun-java-sdk-core</artifactId>
-            <version>2.4.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.aliyun</groupId>
-            <artifactId>aliyun-java-sdk-sms</artifactId>
-            <version>3.0.0-rc1</version>
-        </dependency>
         <!--<dependency>-->
             <!--<groupId>com.owmax</groupId>-->
             <!--<artifactId>owmax</artifactId>-->

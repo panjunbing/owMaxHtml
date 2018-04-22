@@ -8,28 +8,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by panpan on 2017/4/18    ^_^
+ * Created by panpan on 2018/4/20    ^_^
  */
 
 
 
 
 @Controller
-public class owmaxController extends BaseController{
+public class QuestionnaireController extends BaseController{
 
 
-    //微信主页面
-    @RequestMapping(value = "/wechat")
-    public String wechatIndex(){ return wechatPath+"index"; }
+    //调查问卷主页面
+    @RequestMapping(value = "/questionnaire")
+    public String wechatIndex(){ return questionnairePath+"index"; }
 
     /**
      * 微信一级页面转发控制器
      * @param var1
      * @return
      */
-    @RequestMapping("/wechat/{var1}")
+    @RequestMapping("/questionnaire/{var1}")
     public String sendMain(@PathVariable("var1") String var1){
-        return wechatPath+var1;
+        return questionnairePath+var1;
     }
 
     /**
@@ -38,9 +38,9 @@ public class owmaxController extends BaseController{
      * @param file
      * @return
      */
-    @RequestMapping("/wechat/{dir}/{file}")
+    @RequestMapping("/questionnaire/{dir}/{file}")
     public String sendMainDir(@PathVariable("dir") String dir,@PathVariable("file") String file){
-        return wechatPath+dir+"/"+file;
+        return questionnairePath+dir+"/"+file;
     }
 
 
