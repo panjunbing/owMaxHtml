@@ -16,38 +16,43 @@
         <h1 class="demos-title">青年调查问卷</h1>
         <p class="demos-sub-title">xxxxxxxxxxxxxxx</p>
     </header>
-    <div class="weui-cells__title">以下成才观念，您是否同意</div>
-    <div class="weui-cells weui-cells_form">
-        <div class="weui-cell">
+    <div class="weui-cells__title">4.以下成才观念，您是否同意</div>
+    <div class="weui-cell">
             <div class="weui-cell__hd"><label for="date" class="weui-label" style="width: 100%">干一行， 爱一行</label></div>
             <div class="weui-cell__bd">
-                <input class="weui-input" id="q1" type="text" value="" readonly="" style="text-align: right">
+                <input class="weui-input" id="q1" type="text" readonly="readonly" style="text-align: right" placeholder="">
             </div>
-        </div>
     </div>
-    <div class="weui-cells weui-cells_form">
-        <div class="weui-cell">
+    <div class="weui-cell">
             <div class="weui-cell__hd"><label for="date" class="weui-label" style="width: 100%">爱一行才能干一行</label></div>
             <div class="weui-cell__bd">
-                <input class="weui-input" id="q2" type="text" value="" readonly="" style="text-align: right">
+                <input class="weui-input" id="q2" type="text" readonly="readonly" style="text-align: right" placeholder="">
             </div>
-        </div>
     </div>
-    <div class="weui-cells weui-cells_form">
-        <div class="weui-cell">
+    <div class="weui-cell">
             <div class="weui-cell__hd"><label for="date" class="weui-label" style="width: 100%">三百六十行， 行行出状元</label></div>
             <div class="weui-cell__bd">
-                <input class="weui-input" id="q3" type="text" value="" readonly="" style="text-align: right">
+                <input class="weui-input" id="q3" type="text" readonly="readonly" style="text-align: right" placeholder="">
             </div>
-        </div>
     </div>
     <div class="weui-btn-area">
-        <a class="weui-btn weui-btn_primary" href="5" id="showTooltips">下一题</a>
+        <a class="weui-btn weui-btn_primary" id="next">下一题</a>
         <a class="weui-btn weui-btn_warn back" href="javascript:">上一题</a>
     </div>
 </div>
 <#include "common/js.ftl"/>
 <script type="text/javascript">
+    $('#next').on('click',function () {
+        var value1 = $('#q1').val();
+        var value2 = $('#q2').val();
+        var value3 = $('#q3').val();
+        if ((value1 === "") || (value2 === "") || (value3 === "")){
+            weui.topTips('请选择您的观点', 3000);
+        }
+        else {
+            $('#next').attr('href','5')
+        }
+    });
 
     function getLabel(value){
         switch (value[0]) {
@@ -76,13 +81,11 @@
             value: 2
         },{
             label: '不赞成',
-            disabled: true,
             value: 3
         }, {
             label: '非常不赞成',
             value: 4
         }], {
-            defaultValue: [0],
             onChange: function (result) {
                 // console.log(result);
             },
@@ -104,13 +107,11 @@
             value: 2
         },{
             label: '不赞成',
-            disabled: true,
             value: 3
         }, {
             label: '非常不赞成',
             value: 4
         }], {
-            defaultValue: [0],
             onChange: function (result) {
                 // console.log(result);
             },
@@ -132,13 +133,11 @@
             value: 2
         },{
             label: '不赞成',
-            disabled: true,
             value: 3
         }, {
             label: '非常不赞成',
             value: 4
         }], {
-            defaultValue: [0],
             onChange: function onChange(result) {
                 // console.log(result);
             },

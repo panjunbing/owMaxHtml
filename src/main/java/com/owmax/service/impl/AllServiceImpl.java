@@ -10,7 +10,6 @@ import java.util.List;
 
 @Transactional(propagation=Propagation.REQUIRED)
 @Service("allService")
-@SuppressWarnings("unchecked")
 public class AllServiceImpl extends BaseServiceImpl implements AllService {
 
 

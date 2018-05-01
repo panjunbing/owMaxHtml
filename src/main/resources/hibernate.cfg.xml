@@ -42,9 +42,7 @@
 	<!-- Hibernate将收集有助于性能调节的统计数据 -->
 	<property name="hibernate.generate_statistics">true</property>
 
-	<!--<class-cache usage="read-write" class="com.basic.bustation.model.Linestation" />-->
-	<!--<class-cache usage="read-write" class="com.basic.bustation.model.Roadstation" />-->
-	<!--<class-cache usage="read-write" class="com.basic.bustation.model.Roadline" />-->
+
 </session-factory>
 
 </hibernate-configuration>

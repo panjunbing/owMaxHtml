@@ -1,9 +1,6 @@
 package com.owmax.controller;
 
 import com.owmax.model.All;
-import com.owmax.model.Data;
-import com.owmax.model.User;
-import com.owmax.scrapy.scrapy;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;

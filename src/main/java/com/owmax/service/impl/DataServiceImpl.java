@@ -12,7 +12,6 @@ import java.util.Objects;
 
 @Transactional(propagation=Propagation.REQUIRED)
 @Service("dataService")
-@SuppressWarnings("unchecked")
 public class DataServiceImpl extends BaseServiceImpl implements DataService {
 
 
@@ -61,11 +60,9 @@ public class DataServiceImpl extends BaseServiceImpl implements DataService {
 	@Override
 	public Data queryHeroDataByUserID(int userID,String hero) {
 		User user = userDAO.findById(userID);
-		Data heroData = new Data();
 		List<Data> list =  dataDAO.findByProperty("user",user);
-		for (int i = 0;i<list.size();i++){
-			Data data = list.get(i);
-			if(Objects.equals(data.getHero(), hero))
+		for (Data data : list) {
+			if (Objects.equals(data.getHero(), hero))
 				return data;
 		}
 		return null;

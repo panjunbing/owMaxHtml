@@ -17,11 +17,12 @@
         <p class="demos-sub-title">xxxxxxxxxxxxxxx</p>
     </header>
     <div id="form">
-    <div class="weui-cells__title"> 您目前主要的压力来源于什么：（最多选三项）</div>
+        <div class="weui-cells__title">8.您目前主要的压力来源于什么：（最多选三项）</div>
         <div class="weui-cells weui-cells_checkbox">
             <label class="weui-cell weui-check__label" for="s11">
                 <div class="weui-cell__hd">
-                    <input type="checkbox" name="checkbox1" class="weui-check" required pattern="{1,3}" id="s11">
+                    <input type="checkbox" name="checkbox1" class="weui-check" required pattern="{1,3}" id="s11"
+                           tips="请勾选1-3个主要压力来源">
                     <i class="weui-icon-checked"></i>
                 </div>
                 <div class="weui-cell__bd">
@@ -115,7 +116,7 @@
                 $('#next').attr('href','9')
             }
             else {
-                weui.toast('必须选择1-3项', 3000);
+                // weui.topTips('必须选择1-3项', 3000);
             }
             // return true; // 当return true时，不会显示错误
         }, {

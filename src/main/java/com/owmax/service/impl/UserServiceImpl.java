@@ -11,7 +11,6 @@ import java.util.List;
 
 @Transactional(propagation=Propagation.REQUIRED)
 @Service("userService")
-@SuppressWarnings("unchecked")
 public class UserServiceImpl extends BaseServiceImpl implements UserService {
 
 
@@ -65,8 +64,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 			userDAO.getSession().update(user);
 			//将之前的数据删除（之后将爬取新的数据）
 			List<Data> data = dataDAO.findByProperty("user",user);
-			for (int i = 0;i<data.size();i++)
-				dataDAO.delete(data.get(i));
+			for (Data aData : data) dataDAO.delete(aData);
 			return user;
 		}
 		else {

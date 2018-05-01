@@ -1,9 +1,7 @@
 package com.owmax.controller;
 
 import com.google.gson.Gson;
-import com.owmax.service.AllService;
-import com.owmax.service.DataService;
-import com.owmax.service.UserService;
+import com.owmax.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +42,23 @@ public class BaseController {
 
     @Autowired
     protected AllService allService;
+
+    @Autowired
+    protected QuestionnaireUserService questionnaireUserService;
+
+    @Autowired
+    protected QuestionsService questionsService;
+
+    @Autowired
+    protected SelectionsService selectionsService;
+
+    @Autowired
+    protected BlanksService blanksService;
+
+    @Autowired
+    protected AnswerSelectionsService answerSelectionsService;
+
+    @Autowired
+    protected AnswerBlanksService answerBlanksService;
 }
 

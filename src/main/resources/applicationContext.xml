@@ -30,6 +30,12 @@
                 <value>classpath:hibernateconf/User.hbm.xml</value>
                 <value>classpath:hibernateconf/Data.hbm.xml</value>
                 <value>classpath:hibernateconf/All.hbm.xml</value>
+                <value>classpath:hibernateconf/AnswerBlanks.hbm.xml</value>
+                <value>classpath:hibernateconf/AnswerSelections.hbm.xml</value>
+                <value>classpath:hibernateconf/Blanks.hbm.xml</value>
+                <value>classpath:hibernateconf/QuestionnaireUser.hbm.xml</value>
+                <value>classpath:hibernateconf/Questions.hbm.xml</value>
+                <value>classpath:hibernateconf/Selections.hbm.xml</value>
             </list>
         </property>
 
@@ -44,7 +50,7 @@
           class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
-    <aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
     <!--配置事务注解-->
     <tx:annotation-driven transaction-manager="transactionManager" />
 
