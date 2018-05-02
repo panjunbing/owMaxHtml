@@ -36,5 +36,7 @@ public class BaseServiceImpl {
 	@Resource
 	protected QuestionsDAO questionsDAO;
 
+	@Resource
+	protected JumpDAO jumpDAO;
 
 }

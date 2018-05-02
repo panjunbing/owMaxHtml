@@ -16,6 +16,7 @@ public class Selections implements java.io.Serializable {
 	private String selection;
 	private String selectionText;
 	private Set answerSelectionses = new HashSet(0);
+	private Set jumps = new HashSet(0);
 
 	// Constructors
 
@@ -31,11 +32,12 @@ public class Selections implements java.io.Serializable {
 
 	/** full constructor */
 	public Selections(Questions questions, String selection,
-			String selectionText, Set answerSelectionses) {
+			String selectionText, Set answerSelectionses, Set jumps) {
 		this.questions = questions;
 		this.selection = selection;
 		this.selectionText = selectionText;
 		this.answerSelectionses = answerSelectionses;
+		this.jumps = jumps;
 	}
 
 	// Property accessors
@@ -78,6 +80,14 @@ public class Selections implements java.io.Serializable {
 
 	public void setAnswerSelectionses(Set answerSelectionses) {
 		this.answerSelectionses = answerSelectionses;
+	}
+
+	public Set getJumps() {
+		return this.jumps;
+	}
+
+	public void setJumps(Set jumps) {
+		this.jumps = jumps;
 	}
 
 }

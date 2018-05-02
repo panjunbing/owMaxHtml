@@ -15,6 +15,7 @@ public class Questions implements java.io.Serializable {
 	private String title;
 	private Short type;
 	private Short maxSelection;
+	private Set jumps = new HashSet(0);
 	private Set blankses = new HashSet(0);
 	private Set selectionses = new HashSet(0);
 
@@ -31,11 +32,12 @@ public class Questions implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Questions(String title, Short type, Short maxSelection,
+	public Questions(String title, Short type, Short maxSelection, Set jumps,
 			Set blankses, Set selectionses) {
 		this.title = title;
 		this.type = type;
 		this.maxSelection = maxSelection;
+		this.jumps = jumps;
 		this.blankses = blankses;
 		this.selectionses = selectionses;
 	}
@@ -72,6 +74,14 @@ public class Questions implements java.io.Serializable {
 
 	public void setMaxSelection(Short maxSelection) {
 		this.maxSelection = maxSelection;
+	}
+
+	public Set getJumps() {
+		return this.jumps;
+	}
+
+	public void setJumps(Set jumps) {
+		this.jumps = jumps;
 	}
 
 	public Set getBlankses() {

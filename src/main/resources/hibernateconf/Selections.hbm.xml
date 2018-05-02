@@ -8,7 +8,7 @@
     <class name="com.owmax.model.Selections" table="selections" catalog="owmax">
         <id name="id" type="java.lang.Integer">
             <column name="id" />
-            <generator class="identity" />
+            <generator class="native" />
         </id>
         <many-to-one name="questions" class="com.owmax.model.Questions" fetch="select">
             <column name="question_id" not-null="true">
@@ -16,12 +16,12 @@
             </column>
         </many-to-one>
         <property name="selection" type="java.lang.String">
-            <column name="selection" not-null="true">
+            <column name="selection" length="16" not-null="true">
                 <comment>选项</comment>
             </column>
         </property>
         <property name="selectionText" type="java.lang.String">
-            <column name="selection_text">
+            <column name="selection_text" length="16">
                 <comment>当为多项多选时为对应选项的文字，否则为空</comment>
             </column>
         </property>
@@ -30,6 +30,12 @@
                 <column name="seletion_id" not-null="true" />
             </key>
             <one-to-many class="com.owmax.model.AnswerSelections" />
+        </set>
+        <set name="jumps" inverse="true">
+            <key>
+                <column name="selection_id" not-null="true" />
+            </key>
+            <one-to-many class="com.owmax.model.Jump" />
         </set>
     </class>
 </hibernate-mapping>

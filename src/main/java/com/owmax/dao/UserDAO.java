@@ -1,7 +1,7 @@
 package com.owmax.dao;
 
 import com.owmax.model.User;
-import org.hibernate.LockOptions;
+import org.hibernate.LockMode;
 import org.hibernate.Query;
 import org.hibernate.criterion.Example;
 import org.slf4j.Logger;
@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 
 /**
  * A data access object (DAO) providing persistence and search support for User
@@ -136,7 +137,7 @@ public class UserDAO extends BaseHibernateDAO {
 	public void attachClean(User instance) {
 		log.debug("attaching clean User instance");
 		try {
-			getSession().buildLockRequest(LockOptions.NONE).lock(instance);
+			getSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
 		} catch (RuntimeException re) {
 			log.error("attach failed", re);

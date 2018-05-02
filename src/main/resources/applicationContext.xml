@@ -36,6 +36,7 @@
                 <value>classpath:hibernateconf/QuestionnaireUser.hbm.xml</value>
                 <value>classpath:hibernateconf/Questions.hbm.xml</value>
                 <value>classpath:hibernateconf/Selections.hbm.xml</value>
+                <value>classpath:hibernateconf/Jump.hbm.xml</value>
             </list>
         </property>
 

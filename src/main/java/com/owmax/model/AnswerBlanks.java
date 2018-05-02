@@ -21,7 +21,7 @@ public class AnswerBlanks implements java.io.Serializable {
 
 	/** full constructor */
 	public AnswerBlanks(QuestionnaireUser questionnaireUser, Blanks blanks,
-                        String answerText) {
+			String answerText) {
 		this.questionnaireUser = questionnaireUser;
 		this.blanks = blanks;
 		this.answerText = answerText;

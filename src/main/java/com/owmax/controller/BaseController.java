@@ -60,5 +60,9 @@ public class BaseController {
 
     @Autowired
     protected AnswerBlanksService answerBlanksService;
+
+    @Autowired
+    protected JumpService jumpService;
+
 }
 

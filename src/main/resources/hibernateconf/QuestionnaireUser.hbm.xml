@@ -8,13 +8,13 @@
     <class name="com.owmax.model.QuestionnaireUser" table="questionnaire_user" catalog="owmax">
         <id name="id" type="java.lang.Integer">
             <column name="id" />
-            <generator class="identity" />
+            <generator class="native" />
         </id>
         <property name="username" type="java.lang.String">
-            <column name="username" not-null="true" />
+            <column name="username" length="16" not-null="true" unique="true" />
         </property>
         <property name="password" type="java.lang.String">
-            <column name="password" not-null="true" />
+            <column name="password" length="16" not-null="true" />
         </property>
         <property name="isAnswer" type="java.lang.Integer">
             <column name="is_answer" not-null="true">

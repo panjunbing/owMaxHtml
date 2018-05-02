@@ -1,6 +1,6 @@
 package com.owmax.dao;
 
-import com.owmax.model.AnswerSelections;
+import com.owmax.model.Jump;
 import org.hibernate.LockMode;
 import org.hibernate.Query;
 import org.hibernate.criterion.Example;
@@ -11,24 +11,23 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- 	* A data access object (DAO) providing persistence and search support for AnswerSelections entities.
+ 	* A data access object (DAO) providing persistence and search support for Jump entities.
  			* Transaction control of the save(), update() and delete() operations 
 		can directly support Spring container-managed transactions or they can be augmented	to handle user-managed Spring transactions. 
 		Each of these methods provides additional information for how to configure it for the desired type of transaction control. 	
-	 * @see com.owmax.model.AnswerSelections
+	 * @see com.owmax.model.Jump
   * @author MyEclipse Persistence Tools 
  */
 @Repository
-public class AnswerSelectionsDAO extends BaseHibernateDAO  {
-	     private static final Logger log = LoggerFactory.getLogger(AnswerSelectionsDAO.class);
+public class JumpDAO extends BaseHibernateDAO  {
+	     private static final Logger log = LoggerFactory.getLogger(JumpDAO.class);
 		//property constants
-	public static final String SELECTION_OTHER = "selectionOther";
 
 
 
     
-    public void save(AnswerSelections transientInstance) {
-        log.debug("saving AnswerSelections instance");
+    public void save(Jump transientInstance) {
+        log.debug("saving Jump instance");
         try {
             getSession().save(transientInstance);
             log.debug("save successful");
@@ -38,8 +37,8 @@ public class AnswerSelectionsDAO extends BaseHibernateDAO  {
         }
     }
     
-	public void delete(AnswerSelections persistentInstance) {
-        log.debug("deleting AnswerSelections instance");
+	public void delete(Jump persistentInstance) {
+        log.debug("deleting Jump instance");
         try {
             getSession().delete(persistentInstance);
             log.debug("delete successful");
@@ -49,11 +48,11 @@ public class AnswerSelectionsDAO extends BaseHibernateDAO  {
         }
     }
     
-    public AnswerSelections findById( Integer id) {
-        log.debug("getting AnswerSelections instance with id: " + id);
+    public Jump findById( Integer id) {
+        log.debug("getting Jump instance with id: " + id);
         try {
-            AnswerSelections instance = (AnswerSelections) getSession()
-                    .get("com.owmax.model.AnswerSelections", id);
+            Jump instance = (Jump) getSession()
+                    .get("com.owmax.model.Jump", id);
             return instance;
         } catch (RuntimeException re) {
             log.error("get failed", re);
@@ -62,11 +61,11 @@ public class AnswerSelectionsDAO extends BaseHibernateDAO  {
     }
     
     
-    public List findByExample(AnswerSelections instance) {
-        log.debug("finding AnswerSelections instance by example");
+    public List findByExample(Jump instance) {
+        log.debug("finding Jump instance by example");
         try {
             List results = getSession()
-                    .createCriteria("com.owmax.model.AnswerSelections")
+                    .createCriteria("com.owmax.model.Jump")
                     .add(Example.create(instance))
             .list();
             log.debug("find by example successful, result size: " + results.size());
@@ -78,10 +77,10 @@ public class AnswerSelectionsDAO extends BaseHibernateDAO  {
     }    
     
     public List findByProperty(String propertyName, Object value) {
-      log.debug("finding AnswerSelections instance with property: " + propertyName
+      log.debug("finding Jump instance with property: " + propertyName
             + ", value: " + value);
       try {
-         String queryString = "from AnswerSelections as model where model." 
+         String queryString = "from Jump as model where model." 
          						+ propertyName + "= ?";
          Query queryObject = getSession().createQuery(queryString);
 		 queryObject.setParameter(0, value);
@@ -92,17 +91,11 @@ public class AnswerSelectionsDAO extends BaseHibernateDAO  {
       }
 	}
 
-	public List findBySelectionOther(Object selectionOther
-	) {
-		return findByProperty(SELECTION_OTHER, selectionOther
-		);
-	}
-	
 
 	public List findAll() {
-		log.debug("finding all AnswerSelections instances");
+		log.debug("finding all Jump instances");
 		try {
-			String queryString = "from AnswerSelections";
+			String queryString = "from Jump";
 	         Query queryObject = getSession().createQuery(queryString);
 			 return queryObject.list();
 		} catch (RuntimeException re) {
@@ -111,10 +104,10 @@ public class AnswerSelectionsDAO extends BaseHibernateDAO  {
 		}
 	}
 	
-    public AnswerSelections merge(AnswerSelections detachedInstance) {
-        log.debug("merging AnswerSelections instance");
+    public Jump merge(Jump detachedInstance) {
+        log.debug("merging Jump instance");
         try {
-            AnswerSelections result = (AnswerSelections) getSession()
+            Jump result = (Jump) getSession()
                     .merge(detachedInstance);
             log.debug("merge successful");
             return result;
@@ -124,8 +117,8 @@ public class AnswerSelectionsDAO extends BaseHibernateDAO  {
         }
     }
 
-    public void attachDirty(AnswerSelections instance) {
-        log.debug("attaching dirty AnswerSelections instance");
+    public void attachDirty(Jump instance) {
+        log.debug("attaching dirty Jump instance");
         try {
             getSession().saveOrUpdate(instance);
             log.debug("attach successful");
@@ -135,8 +128,8 @@ public class AnswerSelectionsDAO extends BaseHibernateDAO  {
         }
     }
     
-    public void attachClean(AnswerSelections instance) {
-        log.debug("attaching clean AnswerSelections instance");
+    public void attachClean(Jump instance) {
+        log.debug("attaching clean Jump instance");
         try {
             getSession().lock(instance, LockMode.NONE);
             log.debug("attach successful");

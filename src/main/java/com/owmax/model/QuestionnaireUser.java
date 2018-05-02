@@ -33,7 +33,7 @@ public class QuestionnaireUser implements java.io.Serializable {
 
 	/** full constructor */
 	public QuestionnaireUser(String username, String password,
-                             Integer isAnswer, Set answerBlankses, Set answerSelectionses) {
+			Integer isAnswer, Set answerBlankses, Set answerSelectionses) {
 		this.username = username;
 		this.password = password;
 		this.isAnswer = isAnswer;
