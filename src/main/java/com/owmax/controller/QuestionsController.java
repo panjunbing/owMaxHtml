@@ -23,13 +23,13 @@ public class QuestionsController extends BaseController{
     /**
      * 获取问题
      * http://localhost:8080/questions/getQuestion?id=1
-     * @param id  用户名
+     * @param id  题号
      * @return json
      */
     @RequestMapping(value = "/getQuestion",
             produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String login(int id){
+    public String getQuestion(int id){
         Map<Object, Object> map = new HashMap<>();
         try {
             Questions question = questionsService.get(id);

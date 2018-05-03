@@ -46,4 +46,13 @@ public class JumpServiceImpl extends BaseServiceImpl implements JumpService {
         // TODO 自动生成的方法存根
         return jumpDAO.findAll();
     }
+
+
+    @Override
+    public int queryQuestionBySelection(int selelctionID) {
+        Jump jump = (Jump) jumpDAO.findByProperty("selection_id",selelctionID);
+        if (jump != null)
+            return jump.getQuestions().getId();
+        return 0;
+    }
 }
