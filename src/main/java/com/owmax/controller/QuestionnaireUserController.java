@@ -50,7 +50,37 @@ public class QuestionnaireUserController extends BaseController{
             }
         }
         catch (Exception e){
-            map.put("result",e.getMessage());
+            map.put("result", false);
+            map.put("message",e.getMessage());
+        }
+        return gson.toJson(map);
+    }
+
+
+    /**
+     * 登录
+     * http://localhost:8080/questionnaireUser/setAnswer?userID=1
+     * @param userID 用户ID
+     * @return json
+     */
+    @RequestMapping(value = "/setAnswer",
+            produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String setAnswer(int userID) {
+        Map map = new HashMap<>();
+        QuestionnaireUser user = questionnaireUserService.get(userID);
+        try {
+            if (user != null) {
+                user.setIsAnswer(1);
+                map.put("result", true);
+            } else {
+                map.put("result", false);
+                map.put("message", "该用户不存在！");
+            }
+
+        } catch (Exception e) {
+            map.put("result", false);
+            map.put("message", e.getMessage());
         }
         return gson.toJson(map);
     }
