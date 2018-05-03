@@ -1,6 +1,7 @@
 package com.owmax.service.impl;
 
 import com.owmax.model.Jump;
+import com.owmax.model.Selections;
 import com.owmax.service.JumpService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;

@@ -14,7 +14,7 @@
             <column name="question_id" not-null="true" />
         </many-to-one>
         <many-to-one name="selections" class="com.owmax.model.Selections" fetch="select">
-            <column name="selection_id" not-null="true" />
+            <column name="selection_id" not-null="true" unique="true" />
         </many-to-one>
     </class>
 </hibernate-mapping>

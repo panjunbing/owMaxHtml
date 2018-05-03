@@ -1,12 +1,11 @@
 package com.owmax.controller;
 
-import com.owmax.model.Blanks;
 import com.owmax.model.Jump;
-import com.owmax.model.Questions;
 import com.owmax.model.Selections;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,22 +17,26 @@ import java.util.Map;
  */
 
 @Controller
-@RequestMapping("/questions")
+@RequestMapping("/jump")
 public class JumpController extends BaseController{
 
     /**
      * 获取选项跳转的问题号
-     * http://localhost:8080/questions/getJump?selection_id=56
-     * @param id  选项ID
+     * http://localhost:8080/jump/getJump?selectionID=56
+     * @param selectionID  选项ID
      * @return json
      */
     @RequestMapping(value = "/getJump",
             produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String getJump(int id){
+    public String getJump(int selectionID){
         Map<Object, Object> map = new HashMap<>();
         try {
-            int questionID = jumpService.queryQuestionBySelection(id);
+            List list = jumpService.queryALL();
+            Selections selections = selectionsService.get(selectionID);
+//            List<Jump> jumpList = selections.get(selectionID).getJumps();
+//            int questionID = jumpList.get(0).getId();
+            int questionID = 0;
             if(questionID != 0) {
                 map.put("question_id",questionID);
                 map.put("result", true);
@@ -44,7 +47,8 @@ public class JumpController extends BaseController{
             }
         }
         catch (Exception e){
-            map.put("result",e.getMessage());
+            map.put("result", false);
+            map.put("message",e.getMessage());
         }
         return gson.toJson(map);
     }
