@@ -48,6 +48,7 @@
 <#include "common/js.ftl"/>
 <script type="text/javascript">
 
+
     $('#login').on('click',function () {
         weui.form.validate('#form_login', function (error) {
             if (!error) {
@@ -63,10 +64,25 @@
                             var result = eval(data);
                             if(result.result){
                                 weui.toast('登录成功',500);
+                                var userID = result.userID;
                                 setTimeout(function () {
-                                    $(location).attr('href','1');
-                                    $(window).attr('location','1');
-                                    $(location).prop('href','1');
+                                    //获取问题类型
+                                    $.ajax({
+                                        url:"/questions/getQuestionType?id=1",
+                                        async:false,
+                                        success:function (data) {
+                                            var result = eval(data);
+                                            if(result.result){
+                                                var questionURL = "question" + result.type;
+                                                $(location).attr('href',questionURL);
+                                                $(window).attr('location',questionURL);
+                                                $(location).prop('href',questionURL);
+                                            }
+                                            else{
+                                                weui.topTips(result.message, 1000);
+                                            }
+                                        },
+                                    });
                                 },500);
                             }
                             else{
@@ -76,17 +92,14 @@
                     });
                 },500);
             }
-            // return true; // 当return true时，不会显示错误
         }, {
             regexp: {
-
             }
         });
     });
 
     weui.form.checkIfBlur('#form_login', {
         regexp: {
-
         }
     });
 

@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +28,8 @@ public class QuestionnaireUserController extends BaseController{
     @RequestMapping(value = "/login",
             produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String login(String username, String password){
+    public String login(String username, String password,HttpServletRequest request){
+        HttpSession session = request.getSession();
         Map map = new HashMap<>();
         try {
             QuestionnaireUser user = questionnaireUserService.queryQuestionnaireUserByUserName(username);
@@ -42,6 +45,8 @@ public class QuestionnaireUserController extends BaseController{
                 else {
                     map.put("userID", user.getId());
                     map.put("result", true);
+                    session.setAttribute("user",user);
+                    session.setAttribute("questionID",1);
                 }
             }
             else {
@@ -58,7 +63,7 @@ public class QuestionnaireUserController extends BaseController{
 
 
     /**
-     * 登录
+     * 设置用户为已回答
      * http://localhost:8080/questionnaireUser/setAnswer?userID=1
      * @param userID 用户ID
      * @return json
@@ -78,6 +83,35 @@ public class QuestionnaireUserController extends BaseController{
                 map.put("message", "该用户不存在！");
             }
 
+        } catch (Exception e) {
+            map.put("result", false);
+            map.put("message", e.getMessage());
+        }
+        return gson.toJson(map);
+    }
+
+
+    /**
+     * 从session获取用户
+     * http://localhost:8080/questionnaireUser/getUser
+     * @return json
+     */
+    @RequestMapping(value = "/getUser",
+            produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String getUser(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Map map = new HashMap<>();
+        try {
+            QuestionnaireUser user = (QuestionnaireUser) session.getAttribute("user");
+            if (user != null) {
+                map.put("userName", user.getUsername());
+                map.put("userID", user.getId());
+                map.put("return", true);
+            } else {
+                map.put("return", false);
+                map.put("message", "session中无用户信息");
+            }
         } catch (Exception e) {
             map.put("result", false);
             map.put("message", e.getMessage());
