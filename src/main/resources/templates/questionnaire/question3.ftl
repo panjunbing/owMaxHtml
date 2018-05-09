@@ -35,7 +35,7 @@
 
     //获取问题
     $.ajax({
-        url: "/questions/getQuestion?id=9",
+        url: "/questions/getQuestionByID?id=9",
         data: JSON,
         async: false,
         success: function (data) {

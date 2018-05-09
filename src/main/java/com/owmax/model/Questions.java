@@ -93,7 +93,6 @@ public class Questions implements java.io.Serializable {
 		this.blankses = blankses;
 	}
 
-	@OrderBy("id")
 	public Set getSelectionses() {
 		return this.selectionses;
 	}

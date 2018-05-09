@@ -31,13 +31,13 @@
             </key>
             <one-to-many class="com.owmax.model.Jump" />
         </set>
-        <set name="blankses" inverse="true">
+        <set name="blankses" inverse="true"  order-by="id">
             <key>
                 <column name="question_id" not-null="true" />
             </key>
             <one-to-many class="com.owmax.model.Blanks" />
         </set>
-        <set name="selectionses" inverse="true">
+        <set name="selectionses" inverse="true" order-by="id">
             <key>
                 <column name="question_id" not-null="true">
                     <comment>questions表的外键</comment>

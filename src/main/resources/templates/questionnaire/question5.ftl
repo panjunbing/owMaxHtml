@@ -18,7 +18,8 @@
     </header>
     <div id="form">
         <div class="weui-cells__title" id="title"></div>
-        <div class="weui-cells weui-cells_radio" id="selections">
+        <div class="weui-cells weui-cells_radio">
+            <div id="selections">
             <#--<label class="weui-cell weui-check__label" for="x11">-->
                 <#--<div class="weui-cell__bd">-->
                     <#--<p>入职及职位转换期心理培训</p>-->
@@ -28,6 +29,7 @@
                     <#--<span class="weui-icon-checked"></span>-->
                 <#--</div>-->
             <#--</label>-->
+            </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
                     <input class="weui-input" id="radio_other" name="radio_other" readonly="readonly"
@@ -45,7 +47,7 @@
 
     //获取问题
     $.ajax({
-        url: "/questions/getQuestion?id=6",
+        url: "/questions/getQuestionByID?id=6",
         data: JSON,
         async: false,
         success: function (data) {
@@ -89,12 +91,17 @@
     });
 
     //判断其他是否可以填入
-    $('#x4').on('click',function () {
+    $('#x3').on('click',function () {
         //当前状态是不可填入（未勾选其他）,勾选后应设置为可以填入
         $('#radio_other').removeAttr("readonly");
         state = true;
     });
 
+    $('#x0').on('click',function () {
+        var $radio_other = $('#radio_other');
+        $radio_other.val('');
+        $radio_other.attr("readonly","readonly");
+    });
     $('#x1').on('click',function () {
         var $radio_other = $('#radio_other');
         $radio_other.val('');
@@ -105,10 +112,10 @@
         $radio_other.val('');
         $radio_other.attr("readonly","readonly");
     });
-    $('#x3').on('click',function () {
-        var $radio_other = $('#radio_other');
-        $radio_other.val('');
-        $radio_other.attr("readonly","readonly");
+
+    weui.form.checkIfBlur('#form', {
+        regexp: {
+        }
     });
 
 </script>

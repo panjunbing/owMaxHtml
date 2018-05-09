@@ -16,7 +16,7 @@
         <h1 class="demos-title">青年调查问卷</h1>
         <p class="demos-sub-title">xxxxxxxxxxxxxxx</p>
     </header>
-    <form id="form_login" method="post" action="">
+    <form id="form" method="post" action="">
         <div class="weui-cells__title" id="title"></div>
         <div class="weui-cells weui-cells_radio" id = selections>
             <#--<label class="weui-cell weui-check__label" for="x11">-->
@@ -52,8 +52,8 @@
                 for(var i=0;i < selections.length;i++){
                     html += '<label class="weui-cell weui-check__label" for="x'+ i +'"><div class="weui-cell__bd"><p>'
                             + selections[i].selection +'</p></div><div class="weui-cell__ft">' +
-                            '<input type="radio" class="weui-check" name="selection" id="x' + i +
-                            '" required tips="请选择其中一个选项">' +
+                            '<input type="radio" class="weui-check" name="selectionID" id="x' + i +
+                            '" required tips="请选择其中一个选项" value="'+ selections[i].selectionID +'">' +
                             '<span class="weui-icon-checked"></span></div></label>';
                 }
                 $("#selections").html(html);
@@ -67,7 +67,7 @@
         weui.form.validate('#form', function (error) {
             if (!error) {
                 $.ajax({
-                    url: "/answer/addSelectionAnswer",
+                    url: "/jump/getJump",
                     data: $('#form').serialize(),
                     async: false,
                     success: function (data) {

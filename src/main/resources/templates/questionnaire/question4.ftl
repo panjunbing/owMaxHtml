@@ -19,15 +19,15 @@
     <form id="form" method="post" action="">
         <div class="weui-cells__title" id="title"></div>
         <div class="weui-cells weui-cells_form" id="blanks">
-            <div class="weui-cell">
-                <div class="weui-cell__hd"><label class="weui-label">年龄</label></div>
-                <div class="weui-cell__bd">
-                    <input class="weui-input" type="text" required pattern="[0-9]" maxlength="3" placeholder="输入你的年龄" emptytips="请输入年龄" notmatchtips="请输入正确的年龄（数字）">
-                </div>
-                <div class="weui-cell__ft">
-                    <i class="weui-icon-warn"></i>
-                </div>
-            </div>
+            <#--<div class="weui-cell">-->
+                <#--<div class="weui-cell__hd"><label class="weui-label">年龄</label></div>-->
+                <#--<div class="weui-cell__bd">-->
+                    <#--<input class="weui-input" type="text" required pattern="[0-9]" maxlength="3" placeholder="输入你的年龄" emptytips="请输入年龄" notmatchtips="请输入正确的年龄（数字）">-->
+                <#--</div>-->
+                <#--<div class="weui-cell__ft">-->
+                    <#--<i class="weui-icon-warn"></i>-->
+                <#--</div>-->
+            <#--</div>-->
         </div>
         <div class="weui-btn-area">
             <a class="weui-btn weui-btn_primary" id="next">下一题</a>
@@ -40,7 +40,7 @@
 
     //获取问题
     $.ajax({
-        url: "/questions/getQuestion?id=2",
+        url: "/questions/getQuestionByID?id=2",
         data: JSON,
         async: false,
         success: function (data) {
@@ -51,7 +51,7 @@
                 var blanks = result.blanks;
                 var html = "";
                 for(var i=0;i < blanks.length;i++){
-                    var blank = blanks.blank;
+                    var blank = blanks[i].blank;
                     html += ' <div class="weui-cell"><div class="weui-cell__hd">' +
                             '<label class="weui-label">'+ blank +'</label></div>' +
                             '<div class="weui-cell__bd"><input class="weui-input" type="text" required pattern="[0-9]"' +
@@ -59,7 +59,7 @@
                             'notmatchtips="请输入正确的'+ blank +'"></div><div class="weui-cell__ft">' +
                             '<i class="weui-icon-warn"></i></div></div>';
                 }
-                $("#selections").html(html);
+                $("#blanks").html(html);
             }
             else
                 weui.topTips("获取问题失败", 1000);
@@ -85,6 +85,12 @@
             }
         });
     });
+
+    weui.form.checkIfBlur('#form', {
+        regexp: {
+        }
+    });
+
 </script>
 </body>
 </html>

@@ -41,7 +41,7 @@
 
     //获取问题
     $.ajax({
-        url: "/questions/getQuestion?id=8",
+        url: "/questions/getQuestionByID?id=8",
         data: JSON,
         async: false,
         success: function (data) {
@@ -51,10 +51,16 @@
                 $("#title").html(title);
                 var selections = result.selections;
                 var html = "";
-                for(var i=0;i < selections.length;i++){
+                html += '<label class="weui-cell weui-check__label" for="s'+ 0 +'">' +
+                        '<div class="weui-cell__hd"><input type="checkbox" name="selection"' +
+                        ' class="weui-check" required pattern="{1,'+ result.maxSelection +'}" id="s'+ 0 +'"' +
+                        'tips="请勾选正确的选项数"><i class="weui-icon-checked"></i>' +
+                        '</div><div class="weui-cell__bd"><p>'+ selections[0].selection +'</p>\n' +
+                        '</div></label>';
+                for(var i=1;i < selections.length;i++){
                     html += '<label class="weui-cell weui-check__label" for="s'+ i +'">' +
                             '<div class="weui-cell__hd"><input type="checkbox" name="selection"' +
-                            ' class="weui-check" required pattern="{1,'+ selections[i].maxselection +'}" id="s'+ i +'"' +
+                            ' class="weui-check" id="s'+ i +'"' +
                             'tips="请勾选正确的选项数"><i class="weui-icon-checked"></i>' +
                             '</div><div class="weui-cell__bd"><p>'+ selections[i].selection +'</p>\n' +
                             '</div></label>';
@@ -72,7 +78,7 @@
                 $('#next').attr('href','9')
             }
             else {
-                // weui.topTips('必须选择1-3项', 3000);
+                weui.topTips('必须选择1-3项', 3000);
             }
             // return true; // 当return true时，不会显示错误
         }, {
@@ -81,7 +87,12 @@
                 VCODE: /^.{4}$/
             }
         });
-    })
+    });
+
+    weui.form.checkIfBlur('#form', {
+        regexp: {
+        }
+    });
 
 </script>
 </body>

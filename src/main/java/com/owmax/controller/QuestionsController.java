@@ -36,6 +36,7 @@ public class QuestionsController extends BaseController{
             Questions question = questionsService.get(id);
             if(question != null) {
                 map.put("title",question.getTitle());
+                map.put("maxSelection",question.getMaxSelection());
                 int type = question.getType();
                 map.put("type",type);
                 //根据题目类型进行判断
@@ -94,6 +95,7 @@ public class QuestionsController extends BaseController{
             Questions question = questionsService.get(id);
             if(question != null) {
                 map.put("title",question.getTitle());
+                map.put("maxSelection",question.getMaxSelection());
                 int type = question.getType();
                 map.put("type",type);
                 //根据题目类型进行判断
@@ -112,7 +114,7 @@ public class QuestionsController extends BaseController{
                     }
                     map.put("selections",rows);
                 }
-                else {
+                else if (type == 4){
                     List<Blanks> blanksList = new ArrayList<>(question.getBlankses());
                     int size = blanksList.size();
                     Map rows[] = new Map[size];

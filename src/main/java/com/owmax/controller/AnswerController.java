@@ -35,10 +35,7 @@ public class AnswerController extends BaseController{
         HttpSession session = request.getSession();
         Map<Object, Object> map = new HashMap<>();
         try {
-            AnswerSelections answerSelection = new AnswerSelections();
-//            answerSelection.setSelections(selectionsService.get(selectionID));
-//            answerSelection.setQuestionnaireUser((QuestionnaireUser)session.getAttribute("user"));
-            answerSelectionsService.save(answerSelection);
+
             map.put("result", true);
         }
         catch (Exception e){
@@ -64,10 +61,7 @@ public class AnswerController extends BaseController{
         HttpSession session = request.getSession();
         Map<Object, Object> map = new HashMap<>();
         try {
-            AnswerSelections answerSelection = new AnswerSelections();
-//            answerSelection.setSelections(selectionsService.get(selectionID));
-//            answerSelection.setQuestionnaireUser((QuestionnaireUser)session.getAttribute("user"));
-            answerSelectionsService.save(answerSelection);
+
             map.put("result", true);
         }
         catch (Exception e){
