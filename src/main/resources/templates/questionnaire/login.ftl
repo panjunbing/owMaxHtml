@@ -81,7 +81,7 @@
                                             else{
                                                 weui.topTips(result.message, 1000);
                                             }
-                                        },
+                                        }
                                     });
                                 },500);
                             }

@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -57,7 +54,7 @@ public class QuestionsController extends BaseController{
                     }
                     map.put("selections",rows);
                 }
-                else {
+                else if (type == 4){
                     List<Blanks> blanksList = new ArrayList<>(question.getBlankses());
                     int size = blanksList.size();
                     Map rows[] = new Map[size];

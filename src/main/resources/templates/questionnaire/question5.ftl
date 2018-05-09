@@ -17,48 +17,21 @@
         <p class="demos-sub-title">xxxxxxxxxxxxxxx</p>
     </header>
     <div id="form">
-        <div class="weui-cells__title">6.您认为公司应采取哪些措施，对员工心理进行辅导？</div>
-        <div class="weui-cells weui-cells_radio">
-            <label class="weui-cell weui-check__label" for="x11">
-                <div class="weui-cell__bd">
-                    <p>入职及职位转换期心理培训</p>
-                </div>
-                <div class="weui-cell__ft">
-                    <input type="radio" name="radio" class="weui-check" id="x11" required tips="请选择其中一个选项">
-                    <span class="weui-icon-checked"></span>
-                </div>
-            </label>
-            <label class="weui-cell weui-check__label" for="x12">
-                <div class="weui-cell__bd">
-                    <p>定期开办讲座</p>
-                </div>
-                <div class="weui-cell__ft">
-                    <input type="radio" class="weui-check" name="radio" id="x12">
-                    <span class="weui-icon-checked"></span>
-                </div>
-            </label>
-            <label class="weui-cell weui-check__label" for="x13">
-                <div class="weui-cell__bd">
-                    <p>建立心理指导中心</p>
-                </div>
-                <div class="weui-cell__ft">
-                    <input type="radio" name="radio" class="weui-check" id="x13">
-                    <span class="weui-icon-checked"></span>
-                </div>
-            </label>
-            <label class="weui-cell weui-check__label" for="x14">
-                <div class="weui-cell__bd">
-                    <p>其他</p>
-                </div>
-                <div class="weui-cell__ft">
-                    <input type="radio" name="radio" class="weui-check" id="x14">
-                    <span class="weui-icon-checked"></span>
-                </div>
-            </label>
+        <div class="weui-cells__title" id="title"></div>
+        <div class="weui-cells weui-cells_radio" id="selections">
+            <#--<label class="weui-cell weui-check__label" for="x11">-->
+                <#--<div class="weui-cell__bd">-->
+                    <#--<p>入职及职位转换期心理培训</p>-->
+                <#--</div>-->
+                <#--<div class="weui-cell__ft">-->
+                    <#--<input type="radio" name="radio" class="weui-check" id="x11" required tips="请选择其中一个选项">-->
+                    <#--<span class="weui-icon-checked"></span>-->
+                <#--</div>-->
+            <#--</label>-->
             <div class="weui-cell">
                 <div class="weui-cell__bd">
                     <input class="weui-input" id="radio_other" name="radio_other" readonly="readonly"
-                           type="text" placeholder="请输入您认为应该采取的措施">
+                           type="text" placeholder="请输入你的观点">
                 </div>
             </div>
         <div class="weui-btn-area">
@@ -69,6 +42,34 @@
 </div>
 <#include "common/js.ftl"/>
 <script type="text/javascript">
+
+    //获取问题
+    $.ajax({
+        url: "/questions/getQuestion?id=6",
+        data: JSON,
+        async: false,
+        success: function (data) {
+            var result = eval(data);
+            if (result.result) {
+                var title = result.title;
+                $("#title").html(title);
+                var selections = result.selections;
+                var html = "";
+                for(var i=0;i < selections.length;i++){
+                    html += '<label class="weui-cell weui-check__label" for="x'+ i +'"><div class="weui-cell__bd"><p>'
+                            + selections[i].selection +'</p></div><div class="weui-cell__ft">' +
+                            '<input type="radio" class="weui-check" name="selection" id="x' + i +
+                            '" required tips="请选择其中一个选项">' +
+                            '<span class="weui-icon-checked"></span></div></label>';
+                }
+                $("#selections").html(html);
+            }
+            else
+                weui.topTips("获取问题失败", 1000);
+        }
+    });
+
+
     $('#next').on('click',function () {
         weui.form.validate('#form', function (error) {
             if (!error) {
@@ -88,23 +89,23 @@
     });
 
     //判断其他是否可以填入
-    $('#x14').on('click',function () {
+    $('#x4').on('click',function () {
         //当前状态是不可填入（未勾选其他）,勾选后应设置为可以填入
         $('#radio_other').removeAttr("readonly");
         state = true;
     });
 
-    $('#x11').on('click',function () {
+    $('#x1').on('click',function () {
         var $radio_other = $('#radio_other');
         $radio_other.val('');
         $radio_other.attr("readonly","readonly");
     });
-    $('#x12').on('click',function () {
+    $('#x2').on('click',function () {
         var $radio_other = $('#radio_other');
         $radio_other.val('');
         $radio_other.attr("readonly","readonly");
     });
-    $('#x13').on('click',function () {
+    $('#x3').on('click',function () {
         var $radio_other = $('#radio_other');
         $radio_other.val('');
         $radio_other.attr("readonly","readonly");

@@ -1,5 +1,6 @@
 package com.owmax.model;
 
+import javax.persistence.OrderBy;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -92,6 +93,7 @@ public class Questions implements java.io.Serializable {
 		this.blankses = blankses;
 	}
 
+	@OrderBy("id")
 	public Set getSelectionses() {
 		return this.selectionses;
 	}
