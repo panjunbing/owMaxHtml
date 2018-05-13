@@ -11,7 +11,7 @@
 <title>青年调查问卷</title>
 <body>
 
-<div class="weui-tab" id="page-index">
+<div class="page">
     <header class="demos-header">
         <h1 class="demos-title">青年调查问卷</h1>
         <p class="demos-sub-title">xxxxxxxxxxxxxxx</p>

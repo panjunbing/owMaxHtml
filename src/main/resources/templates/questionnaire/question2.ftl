@@ -11,176 +11,68 @@
 <title>青年调查问卷</title>
 <body>
 
-<div class="weui-tab" id="page-index">
+<div class="page">
     <header class="demos-header">
         <h1 class="demos-title">青年调查问卷</h1>
         <p class="demos-sub-title">xxxxxxxxxxxxxxx</p>
     </header>
-    <div class="weui-cells__title" id="title"></div>
-    <div class="weui-cell" id="selections">
-        <#--<div class="weui-cell__hd">-->
-            <#--<label for="date" class="weui-label" style="width: 100%">最重要</label>-->
-        <#--</div>-->
+    <form id="form" method="post" action="">
+        <div id="questions">
+        <div class="weui-cells__title" id="title"></div>
+        </div>
+        <#--<div class="weui-cells__title" id="title"></div>-->
+        <#--<div class="weui-cells weui-cells_radio" id = selections>-->
+        <#--<label class="weui-cell weui-check__label" for="x11">-->
         <#--<div class="weui-cell__bd">-->
-            <#--<input class="weui-input" id="q1" type="text" readonly="readonly" style="text-align: right" placeholder="">-->
+        <#--<p>高中及以下</p>-->
         <#--</div>-->
-    </div>
-    <div class="weui-btn-area">
-        <a class="weui-btn weui-btn_primary" id="next">下一题</a>
-        <a class="weui-btn weui-btn_warn back" href="javascript:">上一题</a>
-    </div>
+        <#--<div class="weui-cell__ft">-->
+        <#--<input type="radio" class="weui-check" name="radio" id="x11" required tips="请选择其中一个选项">-->
+        <#--<span class="weui-icon-checked"></span>-->
+        <#--</div>-->
+        <#--</label>-->
+        <#--</div>-->
+        <div class="weui-btn-area">
+            <a class="weui-btn weui-btn_primary" id="next">下一题</a>
+        </div>
+    </form>
 </div>
 <#include "common/js.ftl"/>
 <script type="text/javascript">
 
     //获取问题
     $.ajax({
-        url: "/questions/getQuestionByID?id=8",
+        url: "/questions/getQuestionByID?id=4",
         data: JSON,
         async: false,
         success: function (data) {
             var result = eval(data);
             if (result.result) {
-                var title = result.title;
-                $("#title").html(title);
-                var selections = result.selections;
+                $('#title').html(result.title);
+                var text = result.text;
+                var selectionTexts = result.selectionText;
                 var html = "";
-                for(var i=0;i < selections.length;i++){
-                    html += '<div class="weui-cell"><div class="weui-cell__hd">' +
-                            '<label for="date" class="weui-label" style="width: 100%">'+ selections.selectionText +
-                            '</label></div><div class="weui-cell__bd">' +
-                            '<input class="weui-input" id="q'+ i +'" type="text" readonly="readonly" ' +
-                            'style="text-align: right" placeholder=""></div></div>';
+                for(var i=0;i < text.length;i++){
+                    html += '<div class="weui-cells__title">'+ text[i].text +'</div>' +
+                            '<div class="weui-cells weui-cells_radio" id = selections'+ i +'></div>';
                 }
-                $("#selections").html(html);
-                //添加选项内的内容
-                function getLabel(value){
-                    switch (value[0]) {
-                        case 0:
-                            return selections[0];
-                        case 1:
-                            return '荣誉称号及精神鼓励';
-                        case 2:
-                            return '职称或职业资格鉴定';
-                        case 3:
-                            return '福利增加';
-                        case 4:
-                            return '职位晋升';
-                        case 5:
-                            return '补贴';
-                        case 6:
-                            return '休闲娱乐';
-                        case 7:
-                            return '股票期权';
+                $("#questions").append(html);
+                html="";
+                var count = 0;
+                for(var j=0;j < selectionTexts.length;j++){
+                    var selection =  selectionTexts[j].text;
+                    for(var k=0;k < selection.length;k++){
+                        html += '<label class="weui-cell weui-check__label" for="x'+ count +'"><div class="weui-cell__bd"><p>'
+                                + selection[k].selection +'</p></div><div class="weui-cell__ft">' +
+                                '<input type="radio" class="weui-check" name="selectionID" id="x' + count +
+                                '" required tips="请选择其中一个选项" value="'+ selection[k].selectionID +'">' +
+                                '<span class="weui-icon-checked"></span></div></label>';
+                        count++;
                     }
+                    var s = $('#selections'+j);
+                    s.html(html);
+                    html="";
                 }
-
-                $('#q1').on('click', function () {
-                    weui.picker([{
-                        label: '奖金',
-                        value: 0
-                    }, {
-                        label: '荣誉称号及精神鼓励',
-                        value: 1
-                    }, {
-                        label: '职称或职业资格鉴定',
-                        value: 2
-                    },{
-                        label: '福利增加',
-                        value: 3
-                    },{
-                        label: '职位晋升',
-                        value: 4
-                    },{
-                        label: '补贴',
-                        value: 5
-                    },{
-                        label: '休闲娱乐',
-                        value: 6
-                    }, {
-                        label: '股票期权',
-                        value: 7
-                    }], {
-                        defaultValue: [0],
-                        onChange: function (result) {
-                            // console.log(result);
-                        },
-                        onConfirm: function (result) {
-                            $("#q1").attr('value',getLabel(result));
-                        }
-                    });
-                });
-
-                $('#q2').on('click', function () {
-                    weui.picker([{
-                        label: '奖金',
-                        value: 0
-                    }, {
-                        label: '荣誉称号及精神鼓励',
-                        value: 1
-                    }, {
-                        label: '职称或职业资格鉴定',
-                        value: 2
-                    },{
-                        label: '福利增加',
-                        value: 3
-                    },{
-                        label: '职位晋升',
-                        value: 4
-                    },{
-                        label: '补贴',
-                        value: 5
-                    },{
-                        label: '休闲娱乐',
-                        value: 6
-                    },{
-                        label: '股票期权',
-                        value: 7
-                    }], {
-                        defaultValue: [0],
-                        onChange: function (result) {
-                            // console.log(result);
-                        },
-                        onConfirm: function (result) {
-                            $("#q2").attr('value',getLabel(result));
-                        }
-                    });
-                });
-
-                $('#q3').on('click', function () {
-                    weui.picker([{
-                        label: '奖金',
-                        value: 0
-                    }, {
-                        label: '荣誉称号及精神鼓励',
-                        value: 1
-                    }, {
-                        label: '职称或职业资格鉴定',
-                        value: 2
-                    },{
-                        label: '福利增加',
-                        value: 3
-                    },{
-                        label: '职位晋升',
-                        value: 4
-                    },{
-                        label: '补贴',
-                        value: 5
-                    },{
-                        label: '休闲娱乐',
-                        value: 6
-                    },{
-                        label: '股票期权',
-                        value: 7
-                    }],{
-                        onChange: function (result) {
-                            // console.log(result);
-                        },
-                        onConfirm: function (result) {
-                            $("#q3").attr('value',getLabel(result));
-                        }
-                    });
-                });
             }
             else
                 weui.topTips("获取问题失败", 1000);
