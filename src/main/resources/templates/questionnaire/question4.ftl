@@ -40,7 +40,7 @@
 
     //获取问题
     $.ajax({
-        url: "/questions/getQuestionByID?id=2",
+        url: "/questions/getQuestion",
         data: JSON,
         async: false,
         success: function (data) {
@@ -55,7 +55,7 @@
                     html += ' <div class="weui-cell"><div class="weui-cell__hd">' +
                             '<label class="weui-label">'+ blank +'</label></div>' +
                             '<div class="weui-cell__bd"><input class="weui-input" type="text" required pattern="[0-9]"' +
-                            ' maxlength="3" placeholder="输入'+ blank +'" emptytips="请输入'+ blank +'" ' +
+                            ' maxlength="3" placeholder="输入'+ blank +'" emptytips="请输入'+ blank +'" name="blankText" ' +
                             'notmatchtips="请输入正确的'+ blank +'"></div><div class="weui-cell__ft">' +
                             '<i class="weui-icon-warn"></i></div></div>';
                 }
@@ -71,14 +71,42 @@
     $('#next').on('click',function () {
         weui.form.validate('#form', function (error) {
             if (!error) {
-                $('#next').attr('href','3')
+                $.ajax({
+                    url: "/answer/addBlanksAnswer",
+                    data: $('#form').serialize(),
+                    async: false,
+                    success: function (data) {
+                        var result = eval(data);
+                        if(result.result) {
+                            var questionID = result.questionID;
+                            $.ajax({
+                                url: "/questions/getQuestionType?id=" + questionID,
+                                async: false,
+                                success: function (data) {
+                                    var result = eval(data);
+                                    if (result.result) {
+                                        var questionURL = "question" + result.type;
+                                        $(location).attr('href', questionURL);
+                                        $(window).attr('location', questionURL);
+                                        $(location).prop('href', questionURL);
+                                    }
+                                    else {
+                                        weui.topTips(result.message, 1000);
+                                    }
+                                }
+                            });
+                        }
+                        else {
+                            weui.topTips(result.message, 1000);
+                        }
+                    }
+                });
             }
             else {
-                // weui.topTips('请选择您的选项', 3000);
+                weui.topTips('请选择您的选项', 3000);
             }
             // return true; // 当return true时，不会显示错误
         }, {
-            // 正则校验
             regexp: {
                 IDNUM: /(?:^\d{15}$)|(?:^\d{18}$)|^\d{17}[\dXx]$/,
                 VCODE: /^.{4}$/

@@ -38,7 +38,7 @@ public class QuestionsServiceImpl extends BaseServiceImpl implements QuestionsSe
     @Override
     public Questions get(int id) {
         // TODO 自动生成的方法存根
-        return questionsDAO.findById(id);
+        return questionsDAO.findById((short) id);
     }
 
     @Override

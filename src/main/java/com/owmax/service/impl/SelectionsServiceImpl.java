@@ -38,7 +38,7 @@ public class SelectionsServiceImpl extends BaseServiceImpl implements Selections
     @Override
     public Selections get(int id) {
         // TODO 自动生成的方法存根
-        return selectionsDAO.findById(id);
+        return selectionsDAO.findById((short) id);
     }
 
     @Override

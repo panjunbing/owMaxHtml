@@ -1,5 +1,7 @@
 package com.owmax.controller;
 
+import com.owmax.model.AnswerBlanks;
+import com.owmax.model.AnswerSelections;
 import com.owmax.model.QuestionnaireUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,7 +9,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,7 +42,7 @@ public class QuestionnaireUserController extends BaseController{
                     map.put("result", false);
                     map.put("message", "密码错误！");
                 }
-                else if (user.getIsAnswer().equals(1)) {
+                else if (user.getIsAnswer().equals(true)) {
                     map.put("result", false);
                     map.put("message", "您已填写过问卷！");
                 }
@@ -47,6 +51,11 @@ public class QuestionnaireUserController extends BaseController{
                     map.put("result", true);
                     session.setAttribute("user",user);
                     session.setAttribute("questionID",1);
+                    //初始化答题session
+                    List<AnswerSelections> answerSelectionsList = new ArrayList<>();
+                    List<AnswerBlanks> answerBlanksList = new ArrayList<>();
+                    session.setAttribute("answerSelectionsList",answerSelectionsList);
+                    session.setAttribute("answerBlanksList",answerBlanksList);
                 }
             }
             else {
@@ -76,7 +85,7 @@ public class QuestionnaireUserController extends BaseController{
         QuestionnaireUser user = questionnaireUserService.get(userID);
         try {
             if (user != null) {
-                user.setIsAnswer(1);
+                user.setIsAnswer(true);
                 map.put("result", true);
             } else {
                 map.put("result", false);

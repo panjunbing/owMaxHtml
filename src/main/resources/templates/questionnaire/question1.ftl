@@ -41,7 +41,7 @@
 
     //获取问题
     $.ajax({
-        url: "/questions/getQuestionByID?id=8",
+        url: "/questions/getQuestionByID",
         data: JSON,
         async: false,
         success: function (data) {
@@ -52,18 +52,18 @@
                 var selections = result.selections;
                 var html = "";
                 html += '<label class="weui-cell weui-check__label" for="s'+ 0 +'">' +
-                        '<div class="weui-cell__hd"><input type="checkbox" name="selection"' +
-                        ' class="weui-check" required pattern="{1,'+ result.maxSelection +'}" id="s'+ 0 +'"' +
-                        'tips="请勾选正确的选项数"><i class="weui-icon-checked"></i>' +
-                        '</div><div class="weui-cell__bd"><p>'+ selections[0].selection +'</p>\n' +
-                        '</div></label>';
+                        '<div class="weui-cell__hd"><input type="checkbox" name="selectionsID"' +
+                        ' class="weui-check" required pattern="{1,'+ result.maxSelection +'}" id="s'+ 0 +
+                        '" tips="请勾选正确的选项数" value="'+ selections[0].selectionID + '">' +
+                        '<i class="weui-icon-checked"></i>' + '</div><div class="weui-cell__bd">' +
+                        '<p>'+ selections[0].selection +'</p></div></label>';
                 for(var i=1;i < selections.length;i++){
                     html += '<label class="weui-cell weui-check__label" for="s'+ i +'">' +
-                            '<div class="weui-cell__hd"><input type="checkbox" name="selection"' +
-                            ' class="weui-check" id="s'+ i +'"' +
-                            'tips="请勾选正确的选项数"><i class="weui-icon-checked"></i>' +
-                            '</div><div class="weui-cell__bd"><p>'+ selections[i].selection +'</p>\n' +
-                            '</div></label>';
+                            '<div class="weui-cell__hd"><input type="checkbox" name="selectionsID"' +
+                            ' class="weui-check" id="s'+ i +
+                            '" tips="请勾选正确的选项数" value="'+ selections[i].selectionID + '">' +
+                            '<i class="weui-icon-checked"></i>' + '</div><div class="weui-cell__bd">' +
+                            '<p>'+ selections[i].selection +'</p></div></label>';
                 }
                 $("#selections").html(html);
             }
@@ -75,10 +75,39 @@
     $('#next').on('click',function () {
         weui.form.validate('#form', function (error) {
             if (!error) {
-                $('#next').attr('href','9')
+                $.ajax({
+                    url: "/answer/addSelectionsAnswer",
+                    data: $('#form').serialize(),
+                    async: false,
+                    success: function (data) {
+                        var result = eval(data);
+                        if(result.result) {
+                            var questionID = result.questionID;
+                            $.ajax({
+                                url: "/questions/getQuestionType?id=" + questionID,
+                                async: false,
+                                success: function (data) {
+                                    var result = eval(data);
+                                    if (result.result) {
+                                        var questionURL = "question" + result.type;
+                                        $(location).attr('href', questionURL);
+                                        $(window).attr('location', questionURL);
+                                        $(location).prop('href', questionURL);
+                                    }
+                                    else {
+                                        weui.topTips(result.message, 1000);
+                                    }
+                                }
+                            });
+                        }
+                        else {
+                            weui.topTips(result.message, 1000);
+                        }
+                    }
+                });
             }
             else {
-                weui.topTips('必须选择1-3项', 3000);
+                weui.topTips('请选择您的选项', 3000);
             }
             // return true; // 当return true时，不会显示错误
         }, {

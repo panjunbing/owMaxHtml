@@ -63,16 +63,17 @@ public class JumpController extends BaseController{
 
 
     /**
-     * 获取选项跳转的问题号
-     * http://localhost:8080/jump/test?selection=56
-     * @param selection  选项
+     * test
+     * http://localhost:8080/jump/test?selectionsID=test
+     * @param selectionsID  选项
      * @return json
      */
     @RequestMapping(value = "/test",
             produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String getJump(String selection){
-        String s = "1";
+    public int getJump(int selectionsID[],HttpServletRequest request){
+        HttpSession session = request.getSession();
+        int s = selectionsID[0];
         return s;
     }
 }

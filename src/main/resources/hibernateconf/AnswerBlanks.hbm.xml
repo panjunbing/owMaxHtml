@@ -11,13 +11,13 @@
             <generator class="native" />
         </id>
         <many-to-one name="questionnaireUser" class="com.owmax.model.QuestionnaireUser" fetch="select">
-            <column name="user_id" />
+            <column name="user_id" not-null="true" />
         </many-to-one>
-        <many-to-one name="blanks" class="com.owmax.model.Blanks" fetch="select">
-            <column name="blank_id" />
+        <many-to-one name="blanks" class="com.owmax.model.Blanks" update="false" insert="false" fetch="select">
+            <column name="user_id" not-null="true" />
         </many-to-one>
         <property name="answerText" type="java.lang.String">
-            <column name="answer_text">
+            <column name="answer_text" not-null="true">
                 <comment>回答内容</comment>
             </column>
         </property>

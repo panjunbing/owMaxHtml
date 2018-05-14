@@ -6,7 +6,7 @@
 -->
 <hibernate-mapping>
     <class name="com.owmax.model.Selections" table="selections" catalog="owmax">
-        <id name="id" type="java.lang.Integer">
+        <id name="id" type="java.lang.Short">
             <column name="id" />
             <generator class="native" />
         </id>
@@ -25,17 +25,17 @@
                 <comment>当为多项多选时为对应选项的文字，否则为空</comment>
             </column>
         </property>
+        <set name="jumps" inverse="true">
+            <key>
+                <column name="selection_id" not-null="true" unique="true" />
+            </key>
+            <one-to-many class="com.owmax.model.Jump" />
+        </set>
         <set name="answerSelectionses" inverse="true">
             <key>
                 <column name="seletion_id" not-null="true" />
             </key>
             <one-to-many class="com.owmax.model.AnswerSelections" />
-        </set>
-        <set name="jumps" inverse="true">
-            <key>
-                <column name="selection_id" not-null="true" />
-            </key>
-            <one-to-many class="com.owmax.model.Jump" />
         </set>
     </class>
 </hibernate-mapping>

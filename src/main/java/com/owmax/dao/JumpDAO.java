@@ -49,7 +49,7 @@ public class JumpDAO extends BaseHibernateDAO {
 		}
 	}
 
-	public Jump findById(Integer id) {
+	public Jump findById(Short id) {
 		log.debug("getting Jump instance with id: " + id);
 		try {
 			Jump instance = (Jump) getSession().get("com.owmax.model.Jump", id);

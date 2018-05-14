@@ -8,7 +8,7 @@ public class Jump implements java.io.Serializable {
 
 	// Fields
 
-	private Integer id;
+	private Short id;
 	private Questions questions;
 	private Selections selections;
 
@@ -26,11 +26,11 @@ public class Jump implements java.io.Serializable {
 
 	// Property accessors
 
-	public Integer getId() {
+	public Short getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Short id) {
 		this.id = id;
 	}
 

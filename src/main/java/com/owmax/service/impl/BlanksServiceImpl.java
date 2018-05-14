@@ -38,7 +38,7 @@ public class BlanksServiceImpl extends BaseServiceImpl implements BlanksService 
     @Override
     public Blanks get(int id) {
         // TODO 自动生成的方法存根
-        return blanksDAO.findById(id);
+        return blanksDAO.findById((short) id);
     }
 
     @Override

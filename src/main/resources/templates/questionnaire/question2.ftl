@@ -42,7 +42,7 @@
 
     //获取问题
     $.ajax({
-        url: "/questions/getQuestionByID?id=4",
+        url: "/questions/getQuestion",
         data: JSON,
         async: false,
         success: function (data) {
@@ -81,15 +81,49 @@
 
 
     $('#next').on('click',function () {
-        // var value1 = $('#q1').val();
-        // var value2 = $('#q2').val();
-        // var value3 = $('#q3').val();
-        // if ((value1 === value2) || (value3 === value1) || (value3 === value2)){
-        //     weui.topTips('请选择正确的排序', 3000);
-        // }
-        // else {
-            $('#next').attr('href','4')
-        // }
+        weui.form.validate('#form', function (error) {
+            if (!error) {
+                $.ajax({
+                    url: "/answer/addSelectionAnswer",
+                    data: $('#form').serialize(),
+                    async: false,
+                    success: function (data) {
+                        var result = eval(data);
+                        if(result.result) {
+                            var questionID = result.questionID;
+                            $.ajax({
+                                url: "/questions/getQuestionType?id=" + questionID,
+                                async: false,
+                                success: function (data) {
+                                    var result = eval(data);
+                                    if (result.result) {
+                                        var questionURL = "question" + result.type;
+                                        $(location).attr('href', questionURL);
+                                        $(window).attr('location', questionURL);
+                                        $(location).prop('href', questionURL);
+                                    }
+                                    else {
+                                        weui.topTips(result.message, 1000);
+                                    }
+                                }
+                            });
+                        }
+                        else {
+                            weui.topTips(result.message, 1000);
+                        }
+                    }
+                });
+            }
+            else {
+                weui.topTips('请选择您的选项', 3000);
+            }
+            // return true; // 当return true时，不会显示错误
+        }, {
+            regexp: {
+                IDNUM: /(?:^\d{15}$)|(?:^\d{18}$)|^\d{17}[\dXx]$/,
+                VCODE: /^.{4}$/
+            }
+        });
     });
 
 

@@ -19,6 +19,13 @@ public class AnswerSelections implements java.io.Serializable {
 	public AnswerSelections() {
 	}
 
+	/** minimal constructor */
+	public AnswerSelections(QuestionnaireUser questionnaireUser,
+			Selections selections) {
+		this.questionnaireUser = questionnaireUser;
+		this.selections = selections;
+	}
+
 	/** full constructor */
 	public AnswerSelections(QuestionnaireUser questionnaireUser,
 			Selections selections, String selectionOther) {

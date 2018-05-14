@@ -45,14 +45,14 @@
         success: function (data) {
             var result = eval(data);
             if (result.result) {
-                var title = result.title;
+                var title = "1、" + result.title;
                 $("#title").html(title);
                 var selections = result.selections;
                 var html = "";
                 for(var i=0;i < selections.length;i++){
                     html += '<label class="weui-cell weui-check__label" for="x'+ i +'"><div class="weui-cell__bd"><p>'
                             + selections[i].selection +'</p></div><div class="weui-cell__ft">' +
-                            '<input type="radio" class="weui-check" name="selectionID" id="x' + i +
+                            '<input type="radio" class="weui-check" name="selectionsID" id="x' + i +
                             '" required tips="请选择其中一个选项" value="'+ selections[i].selectionID +'">' +
                             '<span class="weui-icon-checked"></span></div></label>';
                 }
@@ -67,11 +67,33 @@
         weui.form.validate('#form', function (error) {
             if (!error) {
                 $.ajax({
-                    url: "/jump/getJump",
+                    url: "/answer/addSelectionsAnswer",
                     data: $('#form').serialize(),
                     async: false,
                     success: function (data) {
-
+                        var result = eval(data);
+                        if(result.result) {
+                            var questionID = result.questionID;
+                            $.ajax({
+                                url: "/questions/getQuestionType?id=" + questionID,
+                                async: false,
+                                success: function (data) {
+                                    var result = eval(data);
+                                    if (result.result) {
+                                        var questionURL = "question" + result.type;
+                                        $(location).attr('href', questionURL);
+                                        $(window).attr('location', questionURL);
+                                        $(location).prop('href', questionURL);
+                                    }
+                                    else {
+                                        weui.topTips(result.message, 1000);
+                                    }
+                                }
+                            });
+                        }
+                        else {
+                            weui.topTips(result.message, 1000);
+                        }
                     }
                 });
             }
@@ -92,9 +114,6 @@
         }
     });
 
-    $('#back').on('click',function () {
-        weui.toast('已是第一题！', 3000);
-    });
 </script>
 </body>
 </html>

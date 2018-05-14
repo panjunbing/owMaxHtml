@@ -11,10 +11,10 @@ public class QuestionnaireUser implements java.io.Serializable {
 
 	// Fields
 
-	private Integer id;
+	private Short id;
 	private String username;
 	private String password;
-	private Integer isAnswer;
+	private Boolean isAnswer;
 	private Set answerBlankses = new HashSet(0);
 	private Set answerSelectionses = new HashSet(0);
 
@@ -25,7 +25,7 @@ public class QuestionnaireUser implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public QuestionnaireUser(String username, String password, Integer isAnswer) {
+	public QuestionnaireUser(String username, String password, Boolean isAnswer) {
 		this.username = username;
 		this.password = password;
 		this.isAnswer = isAnswer;
@@ -33,7 +33,7 @@ public class QuestionnaireUser implements java.io.Serializable {
 
 	/** full constructor */
 	public QuestionnaireUser(String username, String password,
-			Integer isAnswer, Set answerBlankses, Set answerSelectionses) {
+			Boolean isAnswer, Set answerBlankses, Set answerSelectionses) {
 		this.username = username;
 		this.password = password;
 		this.isAnswer = isAnswer;
@@ -43,11 +43,11 @@ public class QuestionnaireUser implements java.io.Serializable {
 
 	// Property accessors
 
-	public Integer getId() {
+	public Short getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Short id) {
 		this.id = id;
 	}
 
@@ -67,11 +67,11 @@ public class QuestionnaireUser implements java.io.Serializable {
 		this.password = password;
 	}
 
-	public Integer getIsAnswer() {
+	public Boolean getIsAnswer() {
 		return this.isAnswer;
 	}
 
-	public void setIsAnswer(Integer isAnswer) {
+	public void setIsAnswer(Boolean isAnswer) {
 		this.isAnswer = isAnswer;
 	}
 

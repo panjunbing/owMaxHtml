@@ -39,7 +39,7 @@ public class JumpServiceImpl extends BaseServiceImpl implements JumpService {
     @Override
     public Jump get(int id) {
         // TODO 自动生成的方法存根
-        return jumpDAO.findById(id);
+        return jumpDAO.findById((short) id);
     }
 
     @Override

@@ -11,12 +11,12 @@ public class Selections implements java.io.Serializable {
 
 	// Fields
 
-	private Integer id;
+	private Short id;
 	private Questions questions;
 	private String selection;
 	private String selectionText;
-	private Set answerSelectionses = new HashSet(0);
 	private Set jumps = new HashSet(0);
+	private Set answerSelectionses = new HashSet(0);
 
 	// Constructors
 
@@ -32,21 +32,21 @@ public class Selections implements java.io.Serializable {
 
 	/** full constructor */
 	public Selections(Questions questions, String selection,
-			String selectionText, Set answerSelectionses, Set jumps) {
+			String selectionText, Set jumps, Set answerSelectionses) {
 		this.questions = questions;
 		this.selection = selection;
 		this.selectionText = selectionText;
-		this.answerSelectionses = answerSelectionses;
 		this.jumps = jumps;
+		this.answerSelectionses = answerSelectionses;
 	}
 
 	// Property accessors
 
-	public Integer getId() {
+	public Short getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Short id) {
 		this.id = id;
 	}
 
@@ -74,20 +74,20 @@ public class Selections implements java.io.Serializable {
 		this.selectionText = selectionText;
 	}
 
-	public Set getAnswerSelectionses() {
-		return this.answerSelectionses;
-	}
-
-	public void setAnswerSelectionses(Set answerSelectionses) {
-		this.answerSelectionses = answerSelectionses;
-	}
-
 	public Set getJumps() {
 		return this.jumps;
 	}
 
 	public void setJumps(Set jumps) {
 		this.jumps = jumps;
+	}
+
+	public Set getAnswerSelectionses() {
+		return this.answerSelectionses;
+	}
+
+	public void setAnswerSelectionses(Set answerSelectionses) {
+		this.answerSelectionses = answerSelectionses;
 	}
 
 }

@@ -41,7 +41,7 @@ public class QuestionnaireUserServiceImpl extends BaseServiceImpl implements Que
 	@Override
 	public QuestionnaireUser get(int id) {
 		// TODO 自动生成的方法存根
-		return questionnaireUserDAO.findById(id);
+		return questionnaireUserDAO.findById((short) id);
 	}
 
 	@Override

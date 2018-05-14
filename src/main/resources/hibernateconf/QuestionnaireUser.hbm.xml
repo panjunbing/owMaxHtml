@@ -6,7 +6,7 @@
 -->
 <hibernate-mapping>
     <class name="com.owmax.model.QuestionnaireUser" table="questionnaire_user" catalog="owmax">
-        <id name="id" type="java.lang.Integer">
+        <id name="id" type="java.lang.Short">
             <column name="id" />
             <generator class="native" />
         </id>
@@ -16,14 +16,14 @@
         <property name="password" type="java.lang.String">
             <column name="password" length="16" not-null="true" />
         </property>
-        <property name="isAnswer" type="java.lang.Integer">
+        <property name="isAnswer" type="java.lang.Boolean">
             <column name="is_answer" not-null="true">
                 <comment>是否回答，0为未回答，1为已回答，默认为0</comment>
             </column>
         </property>
         <set name="answerBlankses" inverse="true">
             <key>
-                <column name="user_id" />
+                <column name="user_id" not-null="true" />
             </key>
             <one-to-many class="com.owmax.model.AnswerBlanks" />
         </set>

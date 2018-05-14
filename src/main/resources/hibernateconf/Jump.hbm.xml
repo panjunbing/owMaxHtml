@@ -6,7 +6,7 @@
 -->
 <hibernate-mapping>
     <class name="com.owmax.model.Jump" table="jump" catalog="owmax">
-        <id name="id" type="java.lang.Integer">
+        <id name="id" type="java.lang.Short">
             <column name="id" />
             <generator class="native" />
         </id>

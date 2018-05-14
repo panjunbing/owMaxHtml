@@ -17,7 +17,7 @@
             <column name="seletion_id" not-null="true" />
         </many-to-one>
         <property name="selectionOther" type="java.lang.String">
-            <column name="selection_other" not-null="true">
+            <column name="selection_other">
                 <comment>当选项为其他时</comment>
             </column>
         </property>
