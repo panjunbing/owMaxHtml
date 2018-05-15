@@ -40,6 +40,8 @@
 <#include "common/js.ftl"/>
 <script type="text/javascript">
 
+    var size = 0;
+
     //获取问题
     $.ajax({
         url: "/questions/getQuestion",
@@ -52,7 +54,8 @@
                 var text = result.text;
                 var selectionTexts = result.selectionText;
                 var html = "";
-                for(var i=0;i < text.length;i++){
+                size = text.length;
+                for(var i=0;i < size;i++){
                     html += '<div class="weui-cells__title">'+ text[i].text +'</div>' +
                             '<div class="weui-cells weui-cells_radio" id = selections'+ i +'></div>';
                 }
@@ -62,11 +65,12 @@
                 for(var j=0;j < selectionTexts.length;j++){
                     var selection =  selectionTexts[j].text;
                     for(var k=0;k < selection.length;k++){
-                        html += '<label class="weui-cell weui-check__label" for="x'+ count +'"><div class="weui-cell__bd"><p>'
-                                + selection[k].selection +'</p></div><div class="weui-cell__ft">' +
-                                '<input type="radio" class="weui-check" name="selectionID" id="x' + count +
-                                '" required tips="请选择其中一个选项" value="'+ selection[k].selectionID +'">' +
-                                '<span class="weui-icon-checked"></span></div></label>';
+                        html += '<label class="weui-cell weui-check__label" for="x'+ count +'">' +
+                                '<div class="weui-cell__bd"><p>' + selection[k].selection +
+                                '</p></div><div class="weui-cell__ft">' +
+                                '<input type="radio" class="weui-check" name="selectionID'+ j +'" id="x' +
+                                count + '" required tips="请选择其中一个选项" value="'+ selection[k].selectionID +
+                                '">' + '<span class="weui-icon-checked"></span></div></label>';
                         count++;
                     }
                     var s = $('#selections'+j);
@@ -83,16 +87,22 @@
     $('#next').on('click',function () {
         weui.form.validate('#form', function (error) {
             if (!error) {
+                var selections = $('#form').serializeArray();
+                var json = "selectionID=" + selections[0].value;
+                for (var i = 1;i < selections.length;i++){
+                    json += "&selectionID=";
+                    json +=  selections[i].value;
+                }
+
                 $.ajax({
-                    url: "/answer/addSelectionAnswer",
-                    data: $('#form').serialize(),
+                    url: "/answer/addSelectionAnswer?"+ json,
                     async: false,
                     success: function (data) {
                         var result = eval(data);
                         if(result.result) {
                             var questionID = result.questionID;
                             $.ajax({
-                                url: "/questions/getQuestionType?id=" + questionID,
+                                url: "/questions/getQuestionsType?id=" + questionID,
                                 async: false,
                                 success: function (data) {
                                     var result = eval(data);

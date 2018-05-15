@@ -169,7 +169,7 @@ public class QuestionsController extends BaseController{
                     map.put("selectionText",listTextSelections);
                 }
 
-                else if (type == 4){
+                else if (type >= 3 && type <= 4){
                     List<Blanks> blanksList = new ArrayList<>(question.getBlankses());
                     int size = blanksList.size();
                     Map rows[] = new Map[size];

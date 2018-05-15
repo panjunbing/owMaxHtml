@@ -31,7 +31,6 @@
         </div>
         <div class="weui-btn-area">
             <a class="weui-btn weui-btn_primary" id="next">下一题</a>
-            <a class="weui-btn weui-btn_warn back" href="javascript:">上一题</a>
         </div>
     </form>
 </div>
@@ -103,7 +102,7 @@
                 });
             }
             else {
-                weui.topTips('请选择您的选项', 3000);
+                weui.topTips('请输入填空', 3000);
             }
             // return true; // 当return true时，不会显示错误
         }, {
