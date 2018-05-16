@@ -216,8 +216,8 @@ public class QuestionsController extends BaseController{
                 map.put("result", true);
             }
             else {
-                map.put("result", false);
-                map.put("message", "问题ID不存在！");
+                map.put("result", true);
+                map.put("type", 6);
             }
         }
         catch (Exception e){

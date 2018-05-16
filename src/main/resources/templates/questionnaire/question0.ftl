@@ -45,7 +45,7 @@
         success: function (data) {
             var result = eval(data);
             if (result.result) {
-                var title = "1、" + result.title;
+                var title = result.title;
                 $("#title").html(title);
                 var selections = result.selections;
                 var html = "";

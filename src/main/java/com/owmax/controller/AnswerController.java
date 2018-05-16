@@ -1,6 +1,7 @@
 package com.owmax.controller;
 
 import com.owmax.model.*;
+import org.apache.catalina.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,6 +38,7 @@ public class AnswerController extends BaseController{
             HttpSession session = request.getSession();
             QuestionnaireUser user = (QuestionnaireUser) session.getAttribute("user");
             List<AnswerSelections> answerSelectionsList = (List<AnswerSelections>) session.getAttribute("answerSelectionsList");
+
             for (int selectionID : selectionsID) {
                 Selections selection = selectionsService.get(selectionID);
                 //在此处添加回答入session中
@@ -98,6 +100,38 @@ public class AnswerController extends BaseController{
         catch (Exception e){
             map.put("result", false);
             map.put("message",e.getMessage());
+        }
+        return gson.toJson(map);
+    }
+
+    /**
+     * 将session中保存的答案提交
+     * http://localhost:8080/answer/submit
+     * @return json
+     */
+    @RequestMapping(value = "/submit",
+            produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String submit(HttpServletRequest request) {
+        Map<Object, Object> map = new HashMap<>();
+        try {
+            HttpSession session = request.getSession();
+            //保存选择题回答
+            List<AnswerSelections> answerSelectionsList = new ArrayList<>();
+            answerSelectionsList = (List<AnswerSelections>) session.getAttribute("answerSelectionsList");
+            for (AnswerSelections answerSelection:answerSelectionsList){
+                answerSelectionsService.save(answerSelection);
+            }
+            //保存填空题回答
+            List<AnswerBlanks> answerBlanksList = new ArrayList<>();
+            answerBlanksList = (List<AnswerBlanks>) session.getAttribute("answerBlanksList");
+            for (AnswerBlanks answerBlanks:answerBlanksList){
+                answerBlanksService.save(answerBlanks);
+            }
+            map.put("result",true);
+        } catch (Exception e) {
+            map.put("result", false);
+            map.put("message", e.getMessage());
         }
         return gson.toJson(map);
     }

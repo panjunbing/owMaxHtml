@@ -41,7 +41,7 @@
 
     //获取问题
     $.ajax({
-        url: "/questions/getQuestionByID",
+        url: "/questions/getQuestion",
         data: JSON,
         async: false,
         success: function (data) {
@@ -51,12 +51,22 @@
                 $("#title").html(title);
                 var selections = result.selections;
                 var html = "";
-                html += '<label class="weui-cell weui-check__label" for="s'+ 0 +'">' +
-                        '<div class="weui-cell__hd"><input type="checkbox" name="selectionsID"' +
-                        ' class="weui-check" required pattern="{1,'+ result.maxSelection +'}" id="s'+ 0 +
-                        '" tips="请勾选正确的选项数" value="'+ selections[0].selectionID + '">' +
-                        '<i class="weui-icon-checked"></i>' + '</div><div class="weui-cell__bd">' +
-                        '<p>'+ selections[0].selection +'</p></div></label>';
+                if(result.maxSelection != null){
+                    html += '<label class="weui-cell weui-check__label" for="s'+ 0 +'">' +
+                            '<div class="weui-cell__hd"><input type="checkbox" name="selectionsID"' +
+                            ' class="weui-check" required pattern="{1,'+ result.maxSelection +'}" id="s'+ 0 +
+                            '" tips="请勾选正确的选项数" value="'+ selections[0].selectionID + '">' +
+                            '<i class="weui-icon-checked"></i>' + '</div><div class="weui-cell__bd">' +
+                            '<p>'+ selections[0].selection +'</p></div></label>';
+                }
+                else {
+                    html += '<label class="weui-cell weui-check__label" for="s'+ 0 +'">' +
+                            '<div class="weui-cell__hd"><input type="checkbox" name="selectionsID"' +
+                            ' class="weui-check" id="s'+ 0 +
+                            '" tips="请勾选正确的选项数" value="'+ selections[0].selectionID + '">' +
+                            '<i class="weui-icon-checked"></i>' + '</div><div class="weui-cell__bd">' +
+                            '<p>'+ selections[0].selection +'</p></div></label>';
+                }
                 for(var i=1;i < selections.length;i++){
                     html += '<label class="weui-cell weui-check__label" for="s'+ i +'">' +
                             '<div class="weui-cell__hd"><input type="checkbox" name="selectionsID"' +

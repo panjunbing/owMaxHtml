@@ -16,7 +16,7 @@
         <h1 class="demos-title">青年调查问卷</h1>
         <p class="demos-sub-title">xxxxxxxxxxxxxxx</p>
     </header>
-    <div id="form">
+    <form id="form" method="post" action="">
         <div class="weui-cells__title" id="title"></div>
         <div class="weui-cells weui-cells_radio">
             <div id="selections">
@@ -32,7 +32,7 @@
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
-                    <input class="weui-input" id="radio_other" name="radio_other" readonly="readonly"
+                    <input class="weui-input" id="selectionOther" name="selectionOther" readonly="readonly"
                            type="text" placeholder="请输入你的观点">
                 </div>
             </div>
@@ -40,11 +40,11 @@
             <a class="weui-btn weui-btn_primary" id="next">下一题</a>
             <a class="weui-btn weui-btn_warn back" href="javascript:">上一题</a>
         </div>
-    </div>
+        </div>
+    </form>
 </div>
 <#include "common/js.ftl"/>
 <script type="text/javascript">
-
     //获取问题
     $.ajax({
         url: "/questions/getQuestion",
@@ -60,8 +60,8 @@
                 for(var i=0;i < selections.length;i++){
                     html += '<label class="weui-cell weui-check__label" for="x'+ i +'"><div class="weui-cell__bd"><p>'
                             + selections[i].selection +'</p></div><div class="weui-cell__ft">' +
-                            '<input type="radio" class="weui-check" name="selection" id="x' + i +
-                            '" required tips="请选择其中一个选项">' +
+                            '<input type="radio" class="weui-check" name="selectionsID" id="x' + i +
+                            '" required tips="请选择其中一个选项" value="'+ selections[i].selectionID +'">' +
                             '<span class="weui-icon-checked"></span></div></label>';
                 }
                 $("#selections").html(html);
@@ -75,14 +75,42 @@
     $('#next').on('click',function () {
         weui.form.validate('#form', function (error) {
             if (!error) {
-                $('#next').attr('href','7')
+                $.ajax({
+                    url: "/answer/addSelectionsAnswer",
+                    data: $('#form').serialize(),
+                    async: false,
+                    success: function (data) {
+                        var result = eval(data);
+                        if(result.result) {
+                            var questionID = result.questionID;
+                            $.ajax({
+                                url: "/questions/getQuestionType?id=" + questionID,
+                                async: false,
+                                success: function (data) {
+                                    var result = eval(data);
+                                    if (result.result) {
+                                        var questionURL = "question" + result.type;
+                                        $(location).attr('href', questionURL);
+                                        $(window).attr('location', questionURL);
+                                        $(location).prop('href', questionURL);
+                                    }
+                                    else {
+                                        weui.topTips(result.message, 1000);
+                                    }
+                                }
+                            });
+                        }
+                        else {
+                            weui.topTips(result.message, 1000);
+                        }
+                    }
+                });
             }
             else {
-                // weui.topTips('请选择您的选项', 3000);
+                weui.topTips('请选择您的选项', 3000);
             }
             // return true; // 当return true时，不会显示错误
         }, {
-            // 正则校验
             regexp: {
                 IDNUM: /(?:^\d{15}$)|(?:^\d{18}$)|^\d{17}[\dXx]$/,
                 VCODE: /^.{4}$/
@@ -93,22 +121,22 @@
     //判断其他是否可以填入
     $('#x3').on('click',function () {
         //当前状态是不可填入（未勾选其他）,勾选后应设置为可以填入
-        $('#radio_other').removeAttr("readonly");
+        $('#selectionOther').removeAttr("readonly");
         state = true;
     });
 
     $('#x0').on('click',function () {
-        var $radio_other = $('#radio_other');
+        var $radio_other = $('#selectionOther');
         $radio_other.val('');
         $radio_other.attr("readonly","readonly");
     });
     $('#x1').on('click',function () {
-        var $radio_other = $('#radio_other');
+        var $radio_other = $('#selectionOther');
         $radio_other.val('');
         $radio_other.attr("readonly","readonly");
     });
     $('#x2').on('click',function () {
-        var $radio_other = $('#radio_other');
+        var $radio_other = $('#selectionOther');
         $radio_other.val('');
         $radio_other.attr("readonly","readonly");
     });

@@ -88,22 +88,23 @@
         weui.form.validate('#form', function (error) {
             if (!error) {
                 var selections = $('#form').serializeArray();
-                var json = "selectionID=" + selections[0].value;
+                var json = "selectionsID=" + selections[0].value;
                 for (var i = 1;i < selections.length;i++){
-                    json += "&selectionID=";
+                    json += "&selectionsID=";
                     json +=  selections[i].value;
                 }
 
                 $.ajax({
-                    url: "/answer/addSelectionAnswer?"+ json,
+                    url: "/answer/addSelectionsAnswer?"+ json,
                     async: false,
                     success: function (data) {
                         var result = eval(data);
                         if(result.result) {
                             var questionID = result.questionID;
                             $.ajax({
-                                url: "/questions/getQuestionsType?id=" + questionID,
+                                url: "/questions/getQuestionType?id=" + questionID,
                                 async: false,
+
                                 success: function (data) {
                                     var result = eval(data);
                                     if (result.result) {
