@@ -6,10 +6,10 @@
 <title>青年调查问卷</title>
 <body>
 <div class="page">
+    <#include "common/header.ftl"/>
     <div class="weui-msg">
         <div class="weui-msg__text-area">
-            <h2 class="weui-msg__title">是否提交</h2>
-            <p class="weui-msg__desc">您已完成团青调查问卷的填写，是否提交问卷？<a href="javascript:void(0);">文字链接</a></p>
+            <p class="weui-msg__desc">您已完成团青调查问卷的填写，是否提交问卷？</p>
         </div>
         <div class="weui-msg__opr-area">
             <p class="weui-btn-area">
@@ -26,6 +26,7 @@
             </div>
         </div>
     </div>
+    <#--<#include "common/footer.ftl"/>-->
 </div>
 <#include "common/js.ftl"/>
 <script type="text/javascript">
@@ -37,7 +38,7 @@
             success: function (data) {
                 var result = eval(data);
                 if (result.result) {
-                    var questionURL = "question" + result.type;
+                    var questionURL = "success";
                     $(location).attr('href', questionURL);
                     $(window).attr('location', questionURL);
                     $(location).prop('href', questionURL);

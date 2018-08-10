@@ -24,7 +24,7 @@ public class AnswerController extends BaseController{
 
 
     /**
-     * 添加选择题回答,并返回下一题的题号
+     * 添加选择题回答（保存到session中）,并返回下一题的题号
      * http://localhost:8080/answer/addSelectionsAnswer?selectionsID=3
      * @param selectionsID  选项ID数组
      * @return json
@@ -39,15 +39,17 @@ public class AnswerController extends BaseController{
             QuestionnaireUser user = (QuestionnaireUser) session.getAttribute("user");
             List<AnswerSelections> answerSelectionsList = (List<AnswerSelections>) session.getAttribute("answerSelectionsList");
 
+            //新建AnswerSelects
             for (int selectionID : selectionsID) {
                 Selections selection = selectionsService.get(selectionID);
-                //在此处添加回答入session中
                 AnswerSelections answerSelection = new AnswerSelections(user,selection);
+                //当选项为其他时
                 if(selectionOther != null){
                     answerSelection.setSelectionOther(selectionOther);
                 }
                 answerSelectionsList.add(answerSelection);
             }
+            //添加到session中
             session.setAttribute("answerSelectionsList",answerSelectionsList);
 
             //判断是否需要跳转
@@ -71,7 +73,7 @@ public class AnswerController extends BaseController{
 
 
     /**
-     * 添加填空题回答
+     * 添加填空题回答（保存到session中）,并返回下一题的题号
      * http://localhost:8080/answer/addBlanksAnswer?blanks=test
      * @param blankText  填空
      * @return json
@@ -84,10 +86,13 @@ public class AnswerController extends BaseController{
         try {
             HttpSession session = request.getSession();
             QuestionnaireUser user = (QuestionnaireUser) session.getAttribute("user");
+            //为了获取当前填空题的id
             int questionsID = (int) session.getAttribute("questionID");
             Questions question = questionsService.get(questionsID);
             List<Blanks> blanksList = new ArrayList<>(question.getBlankses());
+
             List<AnswerBlanks> answerBlanksList = (List<AnswerBlanks>) session.getAttribute("answerBlanksList");
+
             for (int i = 0;i<blanksList.size();i++){
                 AnswerBlanks answerBlank = new AnswerBlanks(user,blanksList.get(i),blankText[i]);
                 answerBlanksList.add(answerBlank);

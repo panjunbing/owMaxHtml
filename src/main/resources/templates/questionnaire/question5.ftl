@@ -12,10 +12,7 @@
 <body>
 
 <div class="page">
-    <header class="demos-header">
-        <h1 class="demos-title">青年调查问卷</h1>
-        <p class="demos-sub-title">xxxxxxxxxxxxxxx</p>
-    </header>
+    <#include "common/header.ftl"/>
     <form id="form" method="post" action="">
         <div class="weui-cells__title" id="title"></div>
         <div class="weui-cells weui-cells_radio">
@@ -38,10 +35,10 @@
             </div>
         <div class="weui-btn-area">
             <a class="weui-btn weui-btn_primary" id="next">下一题</a>
-            <a class="weui-btn weui-btn_warn back" href="javascript:">上一题</a>
         </div>
         </div>
     </form>
+    <#--<#include "common/footer.ftl"/>-->
 </div>
 <#include "common/js.ftl"/>
 <script type="text/javascript">
