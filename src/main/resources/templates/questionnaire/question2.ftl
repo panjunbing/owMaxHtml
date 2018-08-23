@@ -48,7 +48,8 @@
         success: function (data) {
             var result = eval(data);
             if (result.result) {
-                $('#title').html(result.title);
+                var title = result.questionID +"、"+ result.title;
+                $("#title").html(title);
                 var text = result.text;
                 var selectionTexts = result.selectionText;
                 var html = "";

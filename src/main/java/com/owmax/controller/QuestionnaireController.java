@@ -20,7 +20,7 @@ public class QuestionnaireController extends BaseController{
 
     //调查问卷主页面
     @RequestMapping(value = "/questionnaire")
-    public String wechatIndex(){ return questionnairePath+"login"; }
+    public String wechatIndex(){ return questionnairePath+"index"; }
 
     /**
      * 调查问卷一级页面转发控制器

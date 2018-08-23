@@ -42,6 +42,10 @@
 </div>
 <#include "common/js.ftl"/>
 <script type="text/javascript">
+
+    //最后一个选项序号
+    var last = 0;
+
     //获取问题
     $.ajax({
         url: "/questions/getQuestion",
@@ -50,10 +54,11 @@
         success: function (data) {
             var result = eval(data);
             if (result.result) {
-                var title = result.title;
+                var title = result.questionID +"、"+ result.title;
                 $("#title").html(title);
                 var selections = result.selections;
                 var html = "";
+                last = selections.length - 1;
                 for(var i=0;i < selections.length;i++){
                     html += '<label class="weui-cell weui-check__label" for="x'+ i +'"><div class="weui-cell__bd"><p>'
                             + selections[i].selection +'</p></div><div class="weui-cell__ft">' +
@@ -116,28 +121,19 @@
     });
 
     //判断其他是否可以填入
-    $('#x3').on('click',function () {
+    $('#x'+ last).on('click',function () {
         //当前状态是不可填入（未勾选其他）,勾选后应设置为可以填入
         $('#selectionOther').removeAttr("readonly");
         state = true;
     });
 
-    $('#x0').on('click',function () {
-        var $radio_other = $('#selectionOther');
-        $radio_other.val('');
-        $radio_other.attr("readonly","readonly");
-    });
-    $('#x1').on('click',function () {
-        var $radio_other = $('#selectionOther');
-        $radio_other.val('');
-        $radio_other.attr("readonly","readonly");
-    });
-    $('#x2').on('click',function () {
-        var $radio_other = $('#selectionOther');
-        $radio_other.val('');
-        $radio_other.attr("readonly","readonly");
-    });
-
+    for(var i =0;i < last;i++){
+        $('#x'+ i).on('click',function () {
+            var $radio_other = $('#selectionOther');
+            $radio_other.val('');
+            $radio_other.attr("readonly","readonly");
+        });
+    }
     weui.form.checkIfBlur('#form', {
         regexp: {
         }

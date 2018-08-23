@@ -10,22 +10,14 @@
         <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
         <div class="weui-msg__text-area">
             <h2 class="weui-msg__title">提交成功</h2>
-            <p class="weui-msg__desc">内容详情，可根据实际需要安排，如果换行则不超过规定长度，居中展现<a href="javascript:void(0);">文字链接</a></p>
+            <p class="weui-msg__desc" style="text-align:justify">&emsp;&emsp;感谢您的积极参与和为本次调查付出的时间！祝您工作顺利，阖家幸福！</p>
         </div>
-        <div class="weui-msg__opr-area">
-            <p class="weui-btn-area">
-                <a href="javascript:" class="weui-btn weui-btn_primary">推荐操作</a>
-                <a href="javascript:" class="weui-btn weui-btn_default">辅助操作</a>
-            </p>
-        </div>
-        <div class="weui-msg__extra-area">
-            <div class="weui-footer">
-                <p class="weui-footer__links">
-                    <a href="javascript:void(0);" class="weui-footer__link">底部链接文本</a>
-                </p>
-                <p class="weui-footer__text">Copyright &copy; 2008-2016 weui.io</p>
-            </div>
-        </div>
+        <#--<div class="weui-msg__opr-area">-->
+            <#--<p class="weui-btn-area">-->
+                <#--<a href="javascript:" class="weui-btn weui-btn_primary" onclick="open(location, '_self').close();">确定</a>-->
+            <#--</p>-->
+        <#--</div>-->
+    <#include "common/footer.ftl"/>
     </div>
 </div>
 <#include "common/js.ftl"/>

@@ -133,6 +133,11 @@ public class AnswerController extends BaseController{
             for (AnswerBlanks answerBlanks:answerBlanksList){
                 answerBlanksService.save(answerBlanks);
             }
+            //设置用户已答题
+            QuestionnaireUser user = (QuestionnaireUser) session.getAttribute("user");
+            user.setIsAnswer(true);
+            questionnaireUserService.update(user);
+
             map.put("result",true);
         } catch (Exception e) {
             map.put("result", false);

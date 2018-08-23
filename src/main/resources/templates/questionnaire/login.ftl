@@ -11,7 +11,7 @@
 <title>青年调查问卷</title>
 <body>
 
-<div class="page">
+<div class="page" style="background-image: url('/images/login1.jpg1111')">
     <#include "common/header.ftl"/>
     <form id="form_login" method="post" action="">
         <div class="weui-cells weui-cells_form">
@@ -40,7 +40,6 @@
             <a id="login" type="submit" href="javascript:" class="weui-btn weui-btn_primary">登录</a>
         </div>
     </form>
-    <#include "common/footer.ftl"/>
 </div>
 
 <#include "common/js.ftl"/>

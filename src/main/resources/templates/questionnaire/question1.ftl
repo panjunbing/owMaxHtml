@@ -44,7 +44,7 @@
         success: function (data) {
             var result = eval(data);
             if (result.result) {
-                var title = result.title;
+                var title = result.questionID +"、"+ result.title;
                 $("#title").html(title);
                 var selections = result.selections;
                 var html = "";

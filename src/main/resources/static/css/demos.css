@@ -5,7 +5,7 @@ body, html {
 .demos-title {
   text-align: center;
   font-size: 34px;
-  color: #3cc51f;
+  color: blue;
   font-weight: 400;
   margin: 0 15%;
 }
@@ -46,4 +46,8 @@ footer a {
 .page{
   background-color:#f8f8f8;
   height: 100%;
+}
+
+.weui-btn_primary{
+  background-color: #007aff;
 }

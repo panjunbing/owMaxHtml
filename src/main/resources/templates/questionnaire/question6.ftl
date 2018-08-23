@@ -17,14 +17,7 @@
                 <a href="javascript:" class="weui-btn weui-btn_default">否</a>
             </p>
         </div>
-        <div class="weui-msg__extra-area">
-            <div class="weui-footer">
-                <p class="weui-footer__links">
-                    <a href="javascript:void(0);" class="weui-footer__link">底部链接文本</a>
-                </p>
-                <p class="weui-footer__text">Copyright &copy; 2008-2016 weui.io</p>
-            </div>
-        </div>
+    <#include "common/footer.ftl"/>
     </div>
     <#--<#include "common/footer.ftl"/>-->
 </div>

@@ -42,7 +42,8 @@ public class QuestionnaireUserController extends BaseController{
                     map.put("result", false);
                     map.put("message", "密码错误！");
                 }
-                else if (user.getIsAnswer().equals(true)) {
+                //除了测试账号其余账号提交问卷后无法登录
+                else if (user.getIsAnswer().equals(true) && !(user.getUsername().equals("zhangliyuan")) && !(user.getUsername().equals("test")) ) {
                     map.put("result", false);
                     map.put("message", "您已填写过问卷！");
                 }
