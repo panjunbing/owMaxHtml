@@ -44,7 +44,7 @@ public class AnswerController extends BaseController{
                 Selections selection = selectionsService.get(selectionID);
                 AnswerSelections answerSelection = new AnswerSelections(user,selection);
                 //当选项为其他时
-                if(selectionOther != null){
+                if(selectionOther != null && selection.getSelection().equals("其他")){
                     answerSelection.setSelectionOther(selectionOther);
                 }
                 answerSelectionsList.add(answerSelection);

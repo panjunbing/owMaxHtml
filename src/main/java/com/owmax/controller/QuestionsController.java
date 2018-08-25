@@ -42,7 +42,7 @@ public class QuestionsController extends BaseController{
                 map.put("type",type);
                 //根据题目类型进行判断
                 //选择题
-                if(type >= 0 && type <= 1 || type == 5){
+                if(type >= 0 && type <= 1 || type >=5){
                     List<Selections> selectionsList = new ArrayList<>(question.getSelectionses());
                     int size = selectionsList.size();
                     Map rows[] = new Map[size];
@@ -129,7 +129,7 @@ public class QuestionsController extends BaseController{
                 map.put("type",type);
                 //根据题目类型进行判断
                 //选择题
-                if(type >= 0 && type <= 1 || type == 5){
+                if(type >= 0 && type <= 1 || type >= 5){
                     List<Selections> selectionsList = new ArrayList<>(question.getSelectionses());
                     int size = selectionsList.size();
                     Map rows[] = new Map[size];
@@ -217,7 +217,7 @@ public class QuestionsController extends BaseController{
             }
             else {
                 map.put("result", true);
-                map.put("type", 6);
+                map.put("type", 7);
             }
         }
         catch (Exception e){
