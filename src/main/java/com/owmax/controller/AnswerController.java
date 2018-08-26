@@ -1,7 +1,6 @@
 package com.owmax.controller;
 
 import com.owmax.model.*;
-import org.apache.catalina.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,9 +35,10 @@ public class AnswerController extends BaseController{
         Map<Object, Object> map = new HashMap<>();
         try {
             HttpSession session = request.getSession();
+            int questionID = (int) session.getAttribute("questionID");
             QuestionnaireUser user = (QuestionnaireUser) session.getAttribute("user");
             List<AnswerSelections> answerSelectionsList = (List<AnswerSelections>) session.getAttribute("answerSelectionsList");
-
+            List<AnswerSelections> answerSelectionsListTemp = new ArrayList<>();
             //新建AnswerSelects
             for (int selectionID : selectionsID) {
                 Selections selection = selectionsService.get(selectionID);
@@ -47,15 +47,29 @@ public class AnswerController extends BaseController{
                 if(selectionOther != null && selection.getSelection().equals("其他")){
                     answerSelection.setSelectionOther(selectionOther);
                 }
-                answerSelectionsList.add(answerSelection);
+                //如果元素存在则删除元素再添加，否则直接添加
+                for(AnswerSelections answerSelectionTemp:answerSelectionsList) {
+                    if(answerSelectionTemp.getSelections().getQuestions().getId() == questionID){
+                        //元素存在
+                        answerSelectionsList.remove(answerSelectionTemp);
+                        break;
+                    }
+                }
+                //加入临时List，防止多选题第二次遍历的时候删除第一次添加的回答
+                answerSelectionsListTemp.add(answerSelection);
+            }
+            //添加元素
+            if(answerSelectionsListTemp.size() > 0){
+                answerSelectionsList.addAll(answerSelectionsListTemp);
             }
             //添加到session中
             session.setAttribute("answerSelectionsList",answerSelectionsList);
 
+            //添加上一题ID
+            session.setAttribute("lastQuestionID",questionID);
             //判断是否需要跳转
             Selections selections = selectionsService.get(selectionsID[0]);
             List<Jump> jumpList = new ArrayList<>(selections.getJumps());
-            int questionID = 0;
             if(jumpList.size() > 0)
                 questionID = jumpList.get(0).getQuestions().getId();
             else
@@ -87,18 +101,32 @@ public class AnswerController extends BaseController{
             HttpSession session = request.getSession();
             QuestionnaireUser user = (QuestionnaireUser) session.getAttribute("user");
             //为了获取当前填空题的id
-            int questionsID = (int) session.getAttribute("questionID");
-            Questions question = questionsService.get(questionsID);
+            int questionID = (int) session.getAttribute("questionID");
+            Questions question = questionsService.get(questionID);
             List<Blanks> blanksList = new ArrayList<>(question.getBlankses());
-
             List<AnswerBlanks> answerBlanksList = (List<AnswerBlanks>) session.getAttribute("answerBlanksList");
+            List<AnswerBlanks> answerBlanksListTemp = new ArrayList<>();
 
             for (int i = 0;i<blanksList.size();i++){
                 AnswerBlanks answerBlank = new AnswerBlanks(user,blanksList.get(i),blankText[i]);
-                answerBlanksList.add(answerBlank);
+                //如果元素存在则删除元素再添加，否则直接添加
+                for(AnswerBlanks answerBlanksTemp:answerBlanksList) {
+                    if (answerBlanksTemp.getBlanks().getQuestions().getId() == questionID){
+                        //元素存储
+                        answerBlanksList.remove(answerBlanksTemp);
+                        break;
+                    }
+                }
+                //加入临时List，防止多填空第二次遍历的时候删除第一次添加的回答
+                answerBlanksListTemp.add(answerBlank);
+            }
+            //添加元素
+            if(answerBlanksListTemp.size() > 0){
+                answerBlanksList.addAll(answerBlanksListTemp);
             }
             session.setAttribute("answerBlanksList",answerBlanksList);
-            session.setAttribute("questionID",question.getId()+1);
+            session.setAttribute("lastQuestionID",questionID);
+            session.setAttribute("questionID",questionID+1);
             map.put("result", true);
             map.put("questionID",question.getId()+1);
         }

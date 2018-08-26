@@ -1,8 +1,6 @@
 package com.owmax.controller;
 
-import com.owmax.model.Blanks;
-import com.owmax.model.Questions;
-import com.owmax.model.Selections;
+import com.owmax.model.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -195,6 +193,36 @@ public class QuestionsController extends BaseController{
         return gson.toJson(map);
     }
 
+    /**
+     * 返回上一题的题号,并将session中当前题号设置为上一题题号
+     * http://localhost:8080/questions/back
+     * @return json
+     */
+    @RequestMapping(value = "/back",
+            produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String back(HttpServletRequest request){
+        Map<Object, Object> map = new HashMap<>();
+        try {
+            HttpSession session = request.getSession();
+            int lastQuestionID = (int) session.getAttribute("lastQuestionID");
+            //当前为第一题时
+            if (lastQuestionID == -1){
+                map.put("result", false);
+                map.put("message","当前已是第一题！");
+            }
+            else {
+                session.setAttribute("questionID",lastQuestionID);
+                map.put("lastQuestionID",lastQuestionID);
+                map.put("result", true);
+            }
+        }
+        catch (Exception e){
+            map.put("result", false);
+            map.put("message",e.getMessage());
+        }
+        return gson.toJson(map);
+    }
 
 
     /**

@@ -31,6 +31,7 @@
         <#--</div>-->
         <div class="weui-btn-area">
             <a class="weui-btn weui-btn_primary" id="next">下一题</a>
+            <a class="weui-btn weui-btn_warn" id="back">上一题</a>
         </div>
     </form>
     <#--<#include "common/footer.ftl"/>-->
@@ -55,7 +56,7 @@
                 var html = "";
                 size = text.length;
                 for(var i=0;i < size;i++){
-                    html += '<div class="weui-cells__title">'+ text[i].text +'</div>' +
+                    html += '<div class="weui-cells__title">'+ "（" + i + "）" + text[i].text +'</div>' +
                             '<div class="weui-cells weui-cells_radio" id = selections'+ i +'></div>';
                 }
                 $("#questions").append(html);
@@ -132,6 +133,39 @@
             regexp: {
                 IDNUM: /(?:^\d{15}$)|(?:^\d{18}$)|^\d{17}[\dXx]$/,
                 VCODE: /^.{4}$/
+            }
+        });
+    });
+
+    //返回上一题
+    $('#back').on('click',function () {
+        $.ajax({
+            url: "/questions/back",
+            async: false,
+            success: function (data) {
+                var result = eval(data);
+                if(result.result) {
+                    var questionID = result.lastQuestionID;
+                    $.ajax({
+                        url: "/questions/getQuestionType?id=" + questionID,
+                        async: false,
+                        success: function (data) {
+                            var result = eval(data);
+                            if (result.result) {
+                                var questionURL = "question" + result.type;
+                                $(location).attr('href', questionURL);
+                                $(window).attr('location', questionURL);
+                                $(location).prop('href', questionURL);
+                            }
+                            else {
+                                weui.topTips(result.message, 1000);
+                            }
+                        }
+                    });
+                }
+                else {
+                    weui.topTips(result.message, 1000);
+                }
             }
         });
     });

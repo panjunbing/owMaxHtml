@@ -52,6 +52,7 @@ public class QuestionnaireUserController extends BaseController{
                     map.put("result", true);
                     session.setAttribute("user",user);
                     session.setAttribute("questionID",1);
+                    session.setAttribute("lastQuestionID",-1);
                     //初始化答题session
                     List<AnswerSelections> answerSelectionsList = new ArrayList<>();
                     List<AnswerBlanks> answerBlanksList = new ArrayList<>();

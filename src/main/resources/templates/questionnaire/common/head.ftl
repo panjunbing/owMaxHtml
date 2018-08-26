@@ -8,4 +8,4 @@
 
 <!-- head 中 -->
 <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/1.1.2/weui.min.css">
-<link rel="stylesheet" href="/css/demos.css?v=1.01">
+<link rel="stylesheet" href="/css/demos.css?v=1.02">

@@ -29,6 +29,7 @@
         </div>
         <div class="weui-btn-area">
             <a class="weui-btn weui-btn_primary" id="next">下一题</a>
+            <a class="weui-btn weui-btn_warn" id="back">上一题</a>
         </div>
     </form>
     <#--<#include "common/footer.ftl"/>-->
@@ -128,6 +129,39 @@
     weui.form.checkIfBlur('#form', {
         regexp: {
         }
+    });
+
+    //返回上一题
+    $('#back').on('click',function () {
+        $.ajax({
+            url: "/questions/back",
+            async: false,
+            success: function (data) {
+                var result = eval(data);
+                if(result.result) {
+                    var questionID = result.lastQuestionID;
+                    $.ajax({
+                        url: "/questions/getQuestionType?id=" + questionID,
+                        async: false,
+                        success: function (data) {
+                            var result = eval(data);
+                            if (result.result) {
+                                var questionURL = "question" + result.type;
+                                $(location).attr('href', questionURL);
+                                $(window).attr('location', questionURL);
+                                $(location).prop('href', questionURL);
+                            }
+                            else {
+                                weui.topTips(result.message, 1000);
+                            }
+                        }
+                    });
+                }
+                else {
+                    weui.topTips(result.message, 1000);
+                }
+            }
+        });
     });
 
 </script>
